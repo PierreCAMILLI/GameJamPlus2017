@@ -20,8 +20,13 @@ public class menu : SingletonBehaviour<menu>{
 	
 	// Update is called once per frame
 	void Update () {
-		//if (Scene
-		
+		if (SceneManager.GetActiveScene().name == "GameScene") {
+			/*if (Controls.Instance.Player().pause) {
+
+			}*/
+		}
+
+
 	}
 
 	//Scripts button
@@ -29,11 +34,17 @@ public class menu : SingletonBehaviour<menu>{
 		string scene = "GameScene";
 		changeMenuGameAndStart();
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
+		GameManager.Instance.InitGame(GameManager.GameMode.Cooperation);
 	}
 	public void quitGame()
 	{
 		Application.Quit();
 		Debug.Log("Game closed");
+	}
+	//A tester
+	public void pause()
+	{
+		pausePanel.SetActive(true);
 	}
 	public void backButton()
 	{

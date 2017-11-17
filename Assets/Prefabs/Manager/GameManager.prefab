@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4538009602604056}
+  - component: {fileID: 114973669227186056}
   - component: {fileID: 114854657353248986}
   m_Layer: 0
   m_Name: GameManager
@@ -57,3 +58,17 @@ MonoBehaviour:
     m_rightButton: Right_1
   - m_leftButton: Left_2
     m_rightButton: Right_2
+--- !u!114 &114973669227186056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1850587060792142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a54813f3b06d5b4bb34716337ccf13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dontDestroyOnLoad: 1
+  _startCountdownInit: 3
+  _limitObjectsToFall: 30

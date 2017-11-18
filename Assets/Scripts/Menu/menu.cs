@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class menu : SingletonBehaviour<menu>{
+public class menu : SingletonBehaviour<menu> {
 
 
 	public GameObject menuStart;
 	public GameObject UIGame;
 	public GameObject pausePanel;
 
+	public int buttonchoice;
+	public  Button[] buttonMenu;
 	
 
 	// Use this for initialization
 	void Start () {
+		buttonchoice = 0;
 		
 	}
 	
@@ -25,7 +28,25 @@ public class menu : SingletonBehaviour<menu>{
 
 			}*/
 		}
+		if (SceneManager.GetActiveScene().name == "MainMenu")
+		{
+			
+			buttonchoice = (buttonchoice + (int)Controls.Instance.Player().Horizontal) % 2;
+			buttonMenu[buttonchoice].Select();
+			
+			if (Controls.Instance.Player().SwapUp)
+			{
+				if (buttonchoice == 0)
+				{
+					play();
+				}
+				else if (buttonchoice == 1)
+				{
+					quitGame();
 
+				}
+			}
+		}
 
 	}
 

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4538009602604056}
   - component: {fileID: 114973669227186056}
   - component: {fileID: 114854657353248986}
+  - component: {fileID: 114766009272600836}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114766009272600836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1850587060792142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f246f4407f7d6e84d81be932273a7468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dontDestroyOnLoad: 1
 --- !u!114 &114854657353248986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,11 +66,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 1
+  _timeMultipleTriggers: 0.25
   _playerControls:
   - m_leftButton: Left_1
     m_rightButton: Right_1
+    m_pauseButton: Pause
   - m_leftButton: Left_2
     m_rightButton: Right_2
+    m_pauseButton: Pause
 --- !u!114 &114973669227186056
 MonoBehaviour:
   m_ObjectHideFlags: 1

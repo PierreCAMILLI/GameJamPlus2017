@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scenes.meta
 guid: 12c28f5f3c082ca4aa5a902a76f68394
 folderAsset: yes
 timeCreated: 1510958025
+=======
+guid: 5893cf0b8cba8c64c93869ebbe4179b5
+folderAsset: yes
+timeCreated: 1510968037
+>>>>>>> bbcdc1658866eaf89cdf349c2163d32e25d68d59:Assets/Scripts/Menu/Highscore.meta
 licenseType: Free
 DefaultImporter:
   externalObjects: {}

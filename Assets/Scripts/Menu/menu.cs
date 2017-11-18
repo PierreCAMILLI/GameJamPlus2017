@@ -10,7 +10,7 @@ public class menu : SingletonBehaviour<menu> {
 	public GameObject menuStart;
 	public GameObject UIGame;
 	public GameObject pausePanel;
-
+	public GameObject highScorePanel;
 	public int buttonchoice;
 	public  Button[] buttonMenu;
 	
@@ -30,20 +30,38 @@ public class menu : SingletonBehaviour<menu> {
 		}
 		if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
-			
-			buttonchoice = (buttonchoice + (int)Controls.Instance.Player().Horizontal) % 2;
-			buttonMenu[buttonchoice].Select();
-			
-			if (Controls.Instance.Player().SwapUp)
+			if (!highScorePanel.activeSelf)
 			{
-				if (buttonchoice == 0)
+				if (Controls.Instance.Player().SwapUp) ///changer pour pause
 				{
-					play();
-				}
-				else if (buttonchoice == 1)
-				{
-					quitGame();
+					switch (buttonchoice)
+					{ case 0:
+						play();
+						break;
 
+					case 1:
+						highscore();
+						break;
+
+					case 2:
+						quitGame();
+						break;
+
+					}
+					
+				}
+				buttonchoice = (int)Mathf.Repeat((buttonchoice + (Controls.Instance.Player().RightDown ? 1 : 0) + (Controls.Instance.Player().LeftDown ? -1 : 0)), 3);
+				
+
+				
+				buttonMenu[buttonchoice].Select();
+
+				
+			}
+			else {
+				if (Controls.Instance.Player().SwapUp) ///changer pour pause
+				{
+					backHighscore();
 				}
 			}
 		}
@@ -63,14 +81,55 @@ public class menu : SingletonBehaviour<menu> {
 		Debug.Log("Game closed");
 	}
 	//A tester
+	public void highscore() {
+		highScorePanel.SetActive(true);
+		
+		/*
+		Debug.Log("Construction Higscore panel");
+			for (int i = 0; i < SaveManager.nbSucces; i++)
+			{
+				GameObject prefab;
+				if (contentPanel.transform.Find("Succes" + i) == null)
+				{
+					prefab = Instantiate(sucessLine, contentPanel.transform) as GameObject;
+					prefab.name = "Succes" + i;
+				}
+				else
+				{
+					prefab = contentPanel.transform.Find("Succes" + i).gameObject;
+				}
+				if (!PlayerPrefs.HasKey("Succes(" + i + ")"))
+				{
+					prefab.GetComponentInChildren<Text>().text = "Locked";
+					
+				}
+				else
+				{
+					if (System.Convert.ToBoolean(PlayerPrefs.GetInt("Succes(" + i + ")")))
+					{
+						prefab.GetComponentInChildren<Text>().text = SaveManager.Succes[i];
+						//Debug.Log(SaveManager.Succes[i]);
+					}
+					else
+					{
+						prefab.GetComponentInChildren<Text>().text = "Locked";
+					}
+				}*/
+	}
+	public void backHighscore()
+	{
+		highScorePanel.SetActive(false);
+	}
 	public void pause()
 	{
 		pausePanel.SetActive(true);
 	}
-	public void backButton()
+	public void backPause()
 	{
 		pausePanel.SetActive(false);
 	}
+	
+	
 
 	//change the menu game and pause
 	public void changeMenuGameAndStart()

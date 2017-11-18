@@ -13,6 +13,11 @@ public class GameManager : SingletonBehaviour<GameManager> {
     [SerializeField]
     private int _limitObjectsToFall = 30;
     public int LimitObjectsToFall { get { return _limitObjectsToFall; } }
+
+    [Tooltip("Largeur de la zone inoccupable au milieu de la balance.")]
+    [SerializeField]
+    private float _offMiddleZoneWidth = 1f;
+    public float OffMiddleZoneWidth { get { return _offMiddleZoneWidth; } }
     #endregion
 
     #region Game Mode

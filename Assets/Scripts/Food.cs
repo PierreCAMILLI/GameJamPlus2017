@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +8,26 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Food : MonoBehaviour {
 
+    public enum Player
+    {
+        Player1 = 0,
+        Player2 = 1
+    }
+
     const string _balanceTag = "Balance";
+    const string _foodTag = "Food";
 
     SpriteRenderer _renderer;
     Collider2D _collider2D;
     Rigidbody2D _rigidbody2D;
 
+    public Player player;
+
     public Transform floorTransform;
+
+    [SerializeField]
+    bool _swapped;
+    public bool Swapped { get { return _swapped; } }
 
     [SerializeField]
     bool _usePhysicsGravity;
@@ -39,15 +53,40 @@ public class Food : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        ClampPosition();
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /// <summary>
+    /// Clamp la position des fruits et légumes
+    /// </summary>
+    public void ClampPosition()
     {
-        if (collision.gameObject.tag == _balanceTag)
+        if (UsePhysicsGravity || _swapped)
+            return;
+        Vector2 pos = transform.localPosition;
+        switch (player)
         {
-            _usePhysicsGravity = true;
+            case Player.Player1:
+                pos.x = Mathf.Min(pos.x, -GameManager.Instance.OffMiddleZoneWidth);
+                break;
+            case Player.Player2:
+                pos.x = Mathf.Max(pos.x, GameManager.Instance.OffMiddleZoneWidth);
+                break;
         }
+        transform.localPosition = pos;
+    }
+
+    public void MoveHorizontally(float move)
+    {
+        transform.Translate(new Vector2(move, 0f));
+    }
+
+    public void Swap()
+    {
+        Vector3 pos = transform.localPosition;
+        pos.x *= -1;
+        transform.localPosition = pos;
+        _swapped = true;
     }
 
     #region Gravity
@@ -66,10 +105,21 @@ public class Food : MonoBehaviour {
         {
             _rigidbody2D.gravityScale = 0f;
             transform.position += -transform.parent.up * _speed * Time.deltaTime;
-            //_rigidbody2D.AddForce(_gravity * _rigidbody2D.mass * Physics2D.gravity.magnitude);
         }
     }
     #endregion
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (_usePhysicsGravity)
+            return;
+        if(     collision.gameObject.tag == _balanceTag
+            ||  (collision.gameObject.tag == _foodTag && collision.gameObject.GetComponent<Food>().UsePhysicsGravity))
+        {
+            _usePhysicsGravity = true;
+            transform.parent = null;
+        }
+    }
 
     private void OnBecameInvisible()
     {
@@ -79,6 +129,7 @@ public class Food : MonoBehaviour {
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, (Vector2)transform.position + _gravity.normalized);
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position - 
+            (UsePhysicsGravity ? -Physics2D.gravity.normalized : (Vector2)transform.parent.up));
     }
 }

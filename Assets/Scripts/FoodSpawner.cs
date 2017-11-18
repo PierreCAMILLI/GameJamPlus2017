@@ -18,10 +18,12 @@ public class FoodSpawner : MonoBehaviour {
     [SerializeField]
     Rect2D _spawnArea;
 
-    [Tooltip("Moyenne d'intervalle d'apparition entre deux fruits/légumes.")]
-    [SerializeField]
-    float _foodPerSecond;
-    public float FoodPerSecond { get { return _foodPerSecond; } }
+    private Food _lastFoodSpawned = null;
+
+    //[Tooltip("Moyenne d'intervalle d'apparition entre deux fruits/légumes.")]
+    //[SerializeField]
+    //float _foodPerSecond;
+    //public float FoodPerSecond { get { return _foodPerSecond; } }
     
     [SerializeField]
     Transform _floorTransform;
@@ -39,20 +41,32 @@ public class FoodSpawner : MonoBehaviour {
     void UpdateSpawn()
     {
         // Check si un fruit apparait
-        while(Random.Range(0f,1f) <= _foodPerSecond * Time.deltaTime)
+        //while(Random.Range(0f,1f) <= _foodPerSecond * Time.deltaTime)
+        if(_lastFoodSpawned == null || _lastFoodSpawned.UsePhysicsGravity || _lastFoodSpawned.Swapped)
         {
             Food pickedFood = _foodInstances[Random.Range(0, _foodInstances.Length)];
             Food instance = Instantiate(pickedFood, transform);
+
+            FoodController controller = instance.GetComponent<FoodController>();
+            if (controller == null)
+                controller = instance.gameObject.AddComponent<FoodController>();
 
             // Fait apparaitre l'objet sur une position aléatoire
             Vector2 pos = new Vector2(
                 Random.Range(- _spawnArea.width * 0.5f, _spawnArea.width * 0.5f),
                 Random.Range(-_spawnArea.height * 0.5f, _spawnArea.height * 0.5f)
                 );
+
+            // Détermine si la pièce appartient au premier ou deuxième joueur
+            instance.player = (pos.x < 0f) ? Food.Player.Player1 : Food.Player.Player2;
+            controller.PlayerNumber = (byte)instance.player;
+
+            // Set les différentes informations du fruit ou légume
             instance.transform.position = transform.TransformPoint(pos);
             instance.UsePhysicsGravity = false;
-            instance.Gravity = -_floorTransform.up;
-            instance.floorTransform = transform;
+            instance.floorTransform = Balance.Instance.transform;
+
+            _lastFoodSpawned = instance;
         }
     }
 

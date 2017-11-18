@@ -5,6 +5,10 @@ using UnityEngine;
 public class Controls : SingletonBehaviour<Controls> {
 
     [SerializeField]
+    private float _timeMultipleTriggers = 0.25f;
+    public float TimeMultipleTrigger { get { return _timeMultipleTriggers; } }
+
+    [SerializeField]
     private PlayerController[] _playerControls;
 
     public PlayerController Player(byte player = 0)
@@ -25,7 +29,19 @@ public class PlayerController
 
     [SerializeField]
     private string m_pauseButton = "Pause";
-    #endregion
+#endregion
+
+#region Double Press
+
+    struct PressTime
+    {
+        public float Up;
+        public float Down;
+    }
+
+    PressTime _leftPressTime;
+    PressTime _rightPressTime;
+#endregion
 
     public float Horizontal
     {
@@ -49,16 +65,43 @@ public class PlayerController
 
     public bool SwapDown
     {
-        get { return Input.GetButtonDown(m_rightButton) && Input.GetButtonDown(m_leftButton); }
+        get {
+            bool buttonPressed = false;
+            if (Input.GetButtonDown(m_rightButton))
+            {
+                _rightPressTime.Down = Time.time;
+                buttonPressed = true;
+            }
+            if (Input.GetButtonDown(m_leftButton))
+            {
+                _leftPressTime.Down = Time.time;
+                buttonPressed = true;
+            }
+            return buttonPressed && Mathf.Abs(_rightPressTime.Down - _leftPressTime.Down) <= Controls.Instance.TimeMultipleTrigger;
+        }
     }
 
     public bool Swap
     {
-        get { return Horizontal == 0f; }
+        get { return Input.GetButton(m_rightButton) && Input.GetButton(m_leftButton); }
     }
     
     public bool SwapUp
     {
-        get { return Input.GetButtonUp(m_rightButton) && Input.GetButtonUp(m_leftButton); }
+        get
+        {
+            bool buttonPressed = false;
+            if (Input.GetButtonUp(m_rightButton))
+            {
+                _rightPressTime.Up = Time.time;
+                buttonPressed = true;
+            }
+            if (Input.GetButtonUp(m_leftButton))
+            {
+                _leftPressTime.Up = Time.time;
+                buttonPressed = true;
+            }
+            return buttonPressed && Mathf.Abs(_rightPressTime.Up - _leftPressTime.Up) <= Controls.Instance.TimeMultipleTrigger;
+        }
     }
 }

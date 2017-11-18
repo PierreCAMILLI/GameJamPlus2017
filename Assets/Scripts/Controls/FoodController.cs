@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Food))]
 public class FoodController : MonoBehaviour {
 
-    const float _moveStep = 0.5f;
+    public const float _moveStep = 0.5f;
 
     private Food _food;
     public Food Food { get { return _food; } }

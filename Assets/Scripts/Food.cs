@@ -23,6 +23,8 @@ public class Food : MonoBehaviour {
 
     public Player player;
 
+    public FoodSpawner spawner;
+
     public Transform floorTransform;
 
     [SerializeField]
@@ -64,15 +66,8 @@ public class Food : MonoBehaviour {
         if (UsePhysicsGravity || _swapped)
             return;
         Vector2 pos = transform.localPosition;
-        switch (player)
-        {
-            case Player.Player1:
-                pos.x = Mathf.Min(pos.x, -GameManager.Instance.OffMiddleZoneWidth);
-                break;
-            case Player.Player2:
-                pos.x = Mathf.Max(pos.x, GameManager.Instance.OffMiddleZoneWidth);
-                break;
-        }
+        float halfWidth = (spawner.SpawnArea.width * 0.5f) - GameManager.Instance.OffMiddleZoneWidth;
+        pos.x = Mathf.Clamp(pos.x, -halfWidth, halfWidth);
         transform.localPosition = pos;
     }
 
@@ -85,6 +80,15 @@ public class Food : MonoBehaviour {
     {
         Vector3 pos = transform.localPosition;
         pos.x *= -1;
+        switch (player)
+        {
+            case Player.Player1:
+                transform.parent = FoodSpawner.Spawners[(int)Player.Player2].transform;
+                break;
+            case Player.Player2:
+                transform.parent = FoodSpawner.Spawners[(int)Player.Player1].transform;
+                break;
+        }
         transform.localPosition = pos;
         _swapped = true;
     }

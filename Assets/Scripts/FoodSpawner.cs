@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour {
 
+    private static FoodSpawner[] _spawners;
+    public static IList<FoodSpawner> Spawners { get { return _spawners; } }
+
     [System.Serializable]
-    struct Rect2D
+    public struct Rect2D
     {
         public float width, height;
     }
@@ -17,6 +20,10 @@ public class FoodSpawner : MonoBehaviour {
     [Tooltip("Zone d'apparition des fruits/légumes.")]
     [SerializeField]
     Rect2D _spawnArea;
+    public Rect2D SpawnArea { get { return _spawnArea; } }
+
+    [SerializeField]
+    Food.Player _player;
 
     private Food _lastFoodSpawned = null;
 
@@ -29,8 +36,10 @@ public class FoodSpawner : MonoBehaviour {
     Transform _floorTransform;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Awake () {
+        if(_spawners == null)
+            _spawners = new FoodSpawner[System.Enum.GetNames(typeof(Food.Player)).Length];
+        _spawners[(int)_player] = this;
 	}
 	
 	// Update is called once per frame
@@ -56,15 +65,17 @@ public class FoodSpawner : MonoBehaviour {
                 Random.Range(- _spawnArea.width * 0.5f, _spawnArea.width * 0.5f),
                 Random.Range(-_spawnArea.height * 0.5f, _spawnArea.height * 0.5f)
                 );
+            pos.x = pos.x - Mathf.Repeat(pos.x, FoodController._moveStep);
 
             // Détermine si la pièce appartient au premier ou deuxième joueur
-            instance.player = (pos.x < 0f) ? Food.Player.Player1 : Food.Player.Player2;
+            instance.player = _player;
             controller.PlayerNumber = (byte)instance.player;
 
             // Set les différentes informations du fruit ou légume
             instance.transform.position = transform.TransformPoint(pos);
             instance.UsePhysicsGravity = false;
             instance.floorTransform = Balance.Instance.transform;
+            instance.spawner = this;
 
             _lastFoodSpawned = instance;
         }

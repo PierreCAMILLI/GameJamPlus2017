@@ -15,4 +15,20 @@ public class Balance : SingletonBehaviour<Balance> {
     {
         return transform.InverseTransformPoint(point);
     }
+
+    public Vector2 ClampPosition(Vector2 position, Food.Player side)
+    {
+        Vector2 pos = transform.TransformVector(position);
+        switch (side)
+        {
+            case Food.Player.Player1:
+                pos.x = Mathf.Min(-GameManager.Instance.OffMiddleZoneWidth, pos.x);
+                break;
+            case Food.Player.Player2:
+                pos.x = Mathf.Max(GameManager.Instance.OffMiddleZoneWidth, pos.x);
+                break;
+        }
+        pos = transform.InverseTransformVector(pos);
+        return pos;
+    }
 }

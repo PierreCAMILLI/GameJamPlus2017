@@ -26,9 +26,10 @@ public class menu : SingletonBehaviour<menu> {
 
 	// Use this for initialization
 	void Start () {
-		creteHighscore();
+		createHighscore();
 		buttonchoice = 0;
 		
+
 	}
 
 	// Update is called once per frame
@@ -58,10 +59,8 @@ public class menu : SingletonBehaviour<menu> {
 				}
 
 				//Pause
-				buttonchoice1 = buttonchoice + (Controls.Instance.Player(0).RightDown ? 1 : 0) + (Controls.Instance.Player(0).LeftDown ? -1 : 0);
-				buttonchoice2 = buttonchoice + (Controls.Instance.Player(1).RightDown ? 1 : 0) + (Controls.Instance.Player(1).LeftDown ? -1 : 0);
 
-				buttonchoice = (int)Mathf.Repeat(buttonchoice1 + buttonchoice2, 2);
+				buttonchoice = (int)Mathf.Repeat(buttonchoice + ((Controls.Instance.Player(0).RightDown|| Controls.Instance.Player(1).RightDown) ? 1 : 0) + ((Controls.Instance.Player(0).LeftDown|| Controls.Instance.Player(1).LeftDown) ? -1 : 0), 2);
 				buttonPause[buttonchoice].Select();
 
 
@@ -125,7 +124,7 @@ public class menu : SingletonBehaviour<menu> {
 	{
 		string scene = "MainMenu";
 		deleteHighscore();
-		creteHighscore();
+		createHighscore();
 		changeMenuGameAndStart();
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.Mode = GameManager.GameMode.None;
@@ -150,23 +149,25 @@ public class menu : SingletonBehaviour<menu> {
 
 	}
 
-	public void creteHighscore() {
-
-		
+	public void createHighscore() {
+		/*
+		Debug.Log("Create save _>");
 		//test
 		SaveManager.score_struct scoreTest;
 		scoreTest.pseudo = "Marc";
 		scoreTest.score_min = 10;
 		scoreTest.score_sec = 0;
 		SaveManager.Instance.saveScore(scoreTest);
-
-		
+		Debug.Log("Create save done");
+		Debug.Log("Count :"+SaveManager.Instance.Highscores.Count);
+		Debug.Log(SaveManager.Instance.nbScore);
+		*/
 		for (int i = 0; i < SaveManager.Instance.nbScore; i++)
 		{
 			SaveManager.score_struct score = SaveManager.Instance.Highscores[i];
 			GameObject scoreLine = Instantiate(scoreText, contentScore.transform);
-			scoreLine.GetComponent<Text>().text = (i+1)+ ". "+ score.pseudo+ " "+ score.score_min + ":" + score.score_sec + " ";
-			scoreLine.name = "TextScore_"+i;
+			scoreLine.GetComponent<Text>().text = (i+1) + ". "+ score.pseudo+ " "+ score.score_min + ":" + score.score_sec + " ";
+			scoreLine.name = "TextScore_"+ i;
 		}
 		
 	}

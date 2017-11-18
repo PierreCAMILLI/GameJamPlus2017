@@ -55,6 +55,7 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 				Highscores.Insert(i, score); 
 			}
 		}
+		Debug.Log("Awake done");
 	}
 	private void Update()
 	{
@@ -70,35 +71,23 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 	{
 		++nbScore;
 		nbScore = Mathf.Min(nbScore_MAX, nbScore);
-		Debug.Log(nbScore);
+		//Debug.Log(nbScore);
 
 		PlayerPrefs.SetInt("nbScore", nbScore);
 
 		int i = 0;
-		if (nbScore == 1)
+		//Debug.Log("i computed");
+		//Comparation rapide du score
+		while (i < nbScore-1 && (_GetScore(Highscores[i]) >= _GetScore(newScore)))//comparaison des scores
 		{
-			Debug.Log(i);
-			Highscores.Insert(i, newScore);
-			i = 0;
+			++i;
 		}
-		else
-		{
-			//Comparation rapide du score
-			while (i < nbScore - 1 && (_GetScore(Highscores[i]) >= _GetScore(newScore)))//comparaison des scores
-			{
-				++i;
-			}
-			Debug.Log(i);
-			Debug.Log(Highscores.Count);
-			if (i == 9)
-			{
-				Highscores[i]= newScore;
-			}
-			else
-			{
-				Highscores.Insert(i, newScore);
-			}
-		}
+		//Debug.Log(i);
+		//Debug.Log(Highscores.Count);
+		
+		Highscores.Insert(i, newScore);
+		
+	
 
 		
 		/*if (Highscores.Count >= nbScore_MAX)
@@ -110,7 +99,7 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 
 		//Sauvegarde mémoire
 		Debug.Log(i);
-		for (; i < nbScore ; ++i)
+		for (i=0; i < nbScore ; i++)
 		{
 			
 			PlayerPrefs.SetString("pseudo-" + i, Highscores[i].pseudo);
@@ -118,7 +107,7 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 			PlayerPrefs.SetInt("score_sec-" + i, Highscores[i].score_sec);
 		}
 
-		Debug.Log(i);
+		//Debug.Log(i);
 
 		PlayerPrefs.Save();
 		return index;

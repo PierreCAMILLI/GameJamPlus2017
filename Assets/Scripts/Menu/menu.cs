@@ -11,25 +11,34 @@ public class menu : SingletonBehaviour<menu> {
 	public GameObject UIGame;
 	public GameObject pausePanel;
 	public GameObject highScorePanel;
+
 	public int buttonchoice;
-	public  Button[] buttonMenu;
+
+	public int buttonchoice1;
+	public int buttonchoice2;
+	//public  Button[] buttonMenu;
 	public Button[] buttonPause;
+
+	public GameObject scoreText;
+
 	
+	public GameObject contentScore;
 
 	// Use this for initialization
 	void Start () {
+		creteHighscore();
 		buttonchoice = 0;
 		
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		if (SceneManager.GetActiveScene().name == "GameScene") {
-			
+
 			//Debug.Log(pausePanel.activeSelf);
 			if (pausePanel.activeSelf)
 			{
-				if (Controls.Instance.Player().PauseDown)
+				if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
 				{
 					switch (buttonchoice)
 					{
@@ -48,60 +57,59 @@ public class menu : SingletonBehaviour<menu> {
 
 				}
 
-				//Menu
-				buttonchoice = (int)Mathf.Repeat((buttonchoice + (Controls.Instance.Player().RightDown ? 1 : 0) + (Controls.Instance.Player().LeftDown ? -1 : 0)), 2);
+				//Pause
+				buttonchoice1 = buttonchoice + (Controls.Instance.Player(0).RightDown ? 1 : 0) + (Controls.Instance.Player(0).LeftDown ? -1 : 0);
+				buttonchoice2 = buttonchoice + (Controls.Instance.Player(1).RightDown ? 1 : 0) + (Controls.Instance.Player(1).LeftDown ? -1 : 0);
+
+				buttonchoice = (int)Mathf.Repeat(buttonchoice1 + buttonchoice2, 2);
 				buttonPause[buttonchoice].Select();
 
 
 			}
 			else
 			{
-				if (Controls.Instance.Player().PauseDown)
+				if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
 				{
 					pause();
 				}
 			}
-			
-
-			
-
 
 		}
 		if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
-			if (!highScorePanel.activeSelf)
+
+			
+			if (Controls.Instance.Player(0).Swap)
 			{
-				if (Controls.Instance.Player().PauseDown) 
-				{
-					switch (buttonchoice)
-					{ case 0:
-						play();
-						break;
+				Debug.Log("Player 1 here");
+				//change sprite player 1
 
-					case 1:
-						highscore();
-						break;
-
-					case 2:
-						quitGame();
-						break;
-
-					}
-					
-				}
-
-				//Menu
-				buttonchoice = (int)Mathf.Repeat((buttonchoice + (Controls.Instance.Player().RightDown ? 1 : 0) + (Controls.Instance.Player().LeftDown ? -1 : 0)), 3);
-				buttonMenu[buttonchoice].Select();
-
-				
 			}
-			else {
-				if (Controls.Instance.Player().PauseDown) 
-				{
-					backHighscore();
-				}
+			if (Controls.Instance.Player(1).Swap)
+			{
+				Debug.Log("Player 2 here");
+				//change sprite player 2
+
 			}
+			if (Controls.Instance.Player(0).Swap && Controls.Instance.Player(1).Swap)
+			{
+				Debug.Log("play");
+				play();
+			}
+
+			//Menu
+			//buttonchoice1 = (int)Mathf.Repeat((buttonchoice1 + (Controls.Instance.Player(0).RightDown ? 1 : 0) + (Controls.Instance.Player(0).LeftDown ? -1 : 0)), 3);
+			//buttonMenu[buttonchoice].Select();
+
+
+		}
+		else
+		{
+			if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
+			{
+				quitGame();
+			}
+		
 		}
 
 	}
@@ -116,15 +124,14 @@ public class menu : SingletonBehaviour<menu> {
 	public void menuLoad()
 	{
 		string scene = "MainMenu";
+		deleteHighscore();
+		creteHighscore();
 		changeMenuGameAndStart();
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.Mode = GameManager.GameMode.None;
 	}
 
-	public void backHighscore()
-	{
-		highScorePanel.SetActive(false);
-	}
+	
 
 	public void quitGame()
 	{
@@ -132,42 +139,36 @@ public class menu : SingletonBehaviour<menu> {
 		Debug.Log("Game closed");
 	}
 
+	public void deleteHighscore()
+	{
 
-	//A tester
-	public void highscore() {
-		highScorePanel.SetActive(true);
+		Transform[] exter = contentScore.GetComponentsInChildren<Transform>();
+		for (int i = 0; i < contentScore.transform.childCount; i++)
+		{
+			Destroy(contentScore.transform.GetChild(i).gameObject);
+		}
+
+	}
+
+	public void creteHighscore() {
+
 		
-		/*
-		Debug.Log("Construction Higscore panel");
-			for (int i = 0; i < SaveManager.nbSucces; i++)
-			{
-				GameObject prefab;
-				if (contentPanel.transform.Find("Succes" + i) == null)
-				{
-					prefab = Instantiate(sucessLine, contentPanel.transform) as GameObject;
-					prefab.name = "Succes" + i;
-				}
-				else
-				{
-					prefab = contentPanel.transform.Find("Succes" + i).gameObject;
-				}
-				if (!PlayerPrefs.HasKey("Succes(" + i + ")"))
-				{
-					prefab.GetComponentInChildren<Text>().text = "Locked";
-					
-				}
-				else
-				{
-					if (System.Convert.ToBoolean(PlayerPrefs.GetInt("Succes(" + i + ")")))
-					{
-						prefab.GetComponentInChildren<Text>().text = SaveManager.Succes[i];
-						//Debug.Log(SaveManager.Succes[i]);
-					}
-					else
-					{
-						prefab.GetComponentInChildren<Text>().text = "Locked";
-					}
-				}*/
+		//test
+		SaveManager.score_struct scoreTest;
+		scoreTest.pseudo = "Marc";
+		scoreTest.score_min = 10;
+		scoreTest.score_sec = 0;
+		SaveManager.Instance.saveScore(scoreTest);
+
+		
+		for (int i = 0; i < SaveManager.Instance.nbScore; i++)
+		{
+			SaveManager.score_struct score = SaveManager.Instance.Highscores[i];
+			GameObject scoreLine = Instantiate(scoreText, contentScore.transform);
+			scoreLine.GetComponent<Text>().text = (i+1)+ ". "+ score.pseudo+ " "+ score.score_min + ":" + score.score_sec + " ";
+			scoreLine.name = "TextScore_"+i;
+		}
+		
 	}
 	
 	public void pause()

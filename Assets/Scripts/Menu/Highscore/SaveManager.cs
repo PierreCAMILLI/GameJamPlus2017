@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SaveManager : SingletonBehaviour<SaveManager>{
 
-
+	public bool resetSave;
 
 
 	//Les données sauvegardé de documents et succés
@@ -25,11 +25,15 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 		public int score_sec;
 	};
 
-	new void Awake()
+	void Awake()
 	{
+		resetSave = false;
 		//Construction sauvegarde
-		
-		Highscores = new List<score_struct>(nbScore_MAX);
+		base.Awake();
+
+		nbScore_MAX = 10;
+
+		Highscores = new List<score_struct>();
 
 
 		if (!PlayerPrefs.HasKey("nbScore"))
@@ -37,7 +41,7 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 			nbScore = 0;
 			PlayerPrefs.SetInt("nbScore", 0);
 
-			//Debug.Log("FirstConnection");
+			Debug.Log("FirstConnection");
 		}
 		else
 		{
@@ -48,43 +52,74 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 				score.pseudo = PlayerPrefs.GetString("pseudo-" + i);
 				score.score_min = PlayerPrefs.GetInt("score_min-" + i);
 				score.score_sec = PlayerPrefs.GetInt("score_sec-" + i);
-				Highscores[i] = score;
+				Highscores.Insert(i, score); 
 			}
 		}
 	}
-	
+	private void Update()
+	{
+		if (resetSave)
+		{
+			PlayerPrefs.DeleteAll();
+			Debug.Log("reset saves");
+		}
+	}
 
 	//sauve le score dans le tableau, dans la mémoire, et retourne la position du joueur
-	int saveScore(score_struct newScore)
+	public int saveScore(score_struct newScore)
 	{
+		++nbScore;
+		nbScore = Mathf.Min(nbScore_MAX, nbScore);
+		Debug.Log(nbScore);
 
-		nbScore = Mathf.Min(nbScore_MAX, ++nbScore);
-
-		PlayerPrefs.SetInt("nbScore", Highscores.Count);
+		PlayerPrefs.SetInt("nbScore", nbScore);
 
 		int i = 0;
-		//Comparation rapide du score
-		while( i < nbScore && (_GetScore(Highscores[i]) > _GetScore(newScore)))//comparaison des scores
+		if (nbScore == 1)
 		{
-			++i;
+			Debug.Log(i);
+			Highscores.Insert(i, newScore);
+			i = 0;
+		}
+		else
+		{
+			//Comparation rapide du score
+			while (i < nbScore - 1 && (_GetScore(Highscores[i]) >= _GetScore(newScore)))//comparaison des scores
+			{
+				++i;
+			}
+			Debug.Log(i);
+			Debug.Log(Highscores.Count);
+			if (i == 9)
+			{
+				Highscores[i]= newScore;
+			}
+			else
+			{
+				Highscores.Insert(i, newScore);
+			}
 		}
 
-		Highscores.Insert(i, newScore);
-		if (Highscores.Count > nbScore_MAX)
-			Highscores.RemoveRange(nbScore_MAX, Highscores.Count - 1);
-
+		
+		/*if (Highscores.Count >= nbScore_MAX)
+			Highscores.RemoveRange(nbScore_MAX, Highscores.Count - 1);*/
+	
 
 		//Permettra d'afficher à l'écran de fin
 		int index = i;
 
 		//Sauvegarde mémoire
-		for (; i < nbScore; ++i)
+		Debug.Log(i);
+		for (; i < nbScore ; ++i)
 		{
 			
 			PlayerPrefs.SetString("pseudo-" + i, Highscores[i].pseudo);
 			PlayerPrefs.SetInt("score_min-" + i, Highscores[i].score_min);
 			PlayerPrefs.SetInt("score_sec-" + i, Highscores[i].score_sec);
 		}
+
+		Debug.Log(i);
+
 		PlayerPrefs.Save();
 		return index;
 	}

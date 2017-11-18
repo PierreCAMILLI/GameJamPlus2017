@@ -34,7 +34,8 @@ public class menu : SingletonBehaviour<menu> {
 
 	// Update is called once per frame
 	void Update() {
-		if (SceneManager.GetActiveScene().name == "GameScene") {
+		if (SceneManager.GetActiveScene().name == "GameScene")
+		{
 
 			//Debug.Log(pausePanel.activeSelf);
 			if (pausePanel.activeSelf)
@@ -60,7 +61,7 @@ public class menu : SingletonBehaviour<menu> {
 
 				//Pause
 
-				buttonchoice = (int)Mathf.Repeat(buttonchoice + ((Controls.Instance.Player(0).RightDown|| Controls.Instance.Player(1).RightDown) ? 1 : 0) + ((Controls.Instance.Player(0).LeftDown|| Controls.Instance.Player(1).LeftDown) ? -1 : 0), 2);
+				buttonchoice = (int)Mathf.Repeat(buttonchoice + ((Controls.Instance.Player(0).RightDown || Controls.Instance.Player(1).RightDown) ? 1 : 0) + ((Controls.Instance.Player(0).LeftDown || Controls.Instance.Player(1).LeftDown) ? -1 : 0), 2);
 				buttonPause[buttonchoice].Select();
 
 
@@ -74,10 +75,10 @@ public class menu : SingletonBehaviour<menu> {
 			}
 
 		}
-		if (SceneManager.GetActiveScene().name == "MainMenu")
+		else if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
 
-			
+
 			if (Controls.Instance.Player(0).Swap)
 			{
 				Debug.Log("Player 1 here");
@@ -101,9 +102,7 @@ public class menu : SingletonBehaviour<menu> {
 			//buttonMenu[buttonchoice].Select();
 
 
-		}
-		else
-		{
+
 			if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
 			{
 				quitGame();

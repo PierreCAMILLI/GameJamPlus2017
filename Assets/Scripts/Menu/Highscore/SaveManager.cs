@@ -41,7 +41,7 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 			nbScore = 0;
 			PlayerPrefs.SetInt("nbScore", 0);
 
-			Debug.Log("FirstConnection");
+			//Debug.Log("FirstConnection");
 		}
 		else
 		{
@@ -55,14 +55,14 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 				Highscores.Insert(i, score); 
 			}
 		}
-		Debug.Log("Awake done");
+		//Debug.Log("Awake done");
 	}
 	private void Update()
 	{
 		if (resetSave)
 		{
 			PlayerPrefs.DeleteAll();
-			Debug.Log("reset saves");
+			//Debug.Log("reset saves");
 		}
 	}
 

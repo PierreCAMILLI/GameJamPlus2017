@@ -67,13 +67,15 @@ public class GameManager : SingletonBehaviour<GameManager> {
     public PlayerStats SecondPlayerStats { get { return _playerStats[1]; } }
     #endregion
 
+	public bool bool_GameOver;
+
     void Start()
     {
         for (int i = 0; i < _playerStats.Length; ++i)
             _playerStats[i] = new PlayerStats();
     }
-
-    public void InitGame(GameMode mode)
+	
+	public void InitGame(GameMode mode)
     {
         _mode = mode;
         _startCountdown = _startCountdownInit;

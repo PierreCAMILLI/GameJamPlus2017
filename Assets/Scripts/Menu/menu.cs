@@ -11,17 +11,12 @@ public class menu : SingletonBehaviour<menu> {
 	public GameObject UIGame;
 	public GameObject pausePanel;
 	public GameObject highScorePanel;
+	public GameObject gameOverPanel;
 
 	public int buttonchoice;
-
-	public int buttonchoice1;
-	public int buttonchoice2;
-	//public  Button[] buttonMenu;
 	public Button[] buttonPause;
 
 	public GameObject scoreText;
-
-	
 	public GameObject contentScore;
 
 	// Use this for initialization
@@ -34,11 +29,19 @@ public class menu : SingletonBehaviour<menu> {
 
 	// Update is called once per frame
 	void Update() {
+		//test Tme
+		//Debug.Log(Time.timeSinceLevelLoad);
+		//Debug.Log(GameManager.Instance.Timer);
+		Debug.Log(convertTmerString(Time.timeSinceLevelLoad));
+		//Debug.Log(_get_min(Time.timeSinceLevelLoad));
+		//Debug.Log(_get_sec(Time.timeSinceLevelLoad));
+
+
 		if (SceneManager.GetActiveScene().name == "GameScene")
 		{
 
 			//Debug.Log(pausePanel.activeSelf);
-			if (pausePanel.activeSelf)
+			if (pausePanel.activeSelf && !gameOverPanel.activeSelf)
 			{
 				if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
 				{
@@ -66,14 +69,16 @@ public class menu : SingletonBehaviour<menu> {
 
 
 			}
-			else
+			else if (!gameOverPanel.activeSelf)
 			{
 				if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
 				{
 					pause();
 				}
 			}
-
+			else if (gameOverPanel.activeSelf) {
+				//gameOver();
+			} 
 		}
 		else if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
@@ -119,6 +124,7 @@ public class menu : SingletonBehaviour<menu> {
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.InitGame(GameManager.GameMode.Cooperation);
 	}
+
 	public void menuLoad()
 	{
 		string scene = "MainMenu";
@@ -129,7 +135,17 @@ public class menu : SingletonBehaviour<menu> {
 		GameManager.Instance.Mode = GameManager.GameMode.None;
 	}
 
-	
+	public void pause()
+	{
+		pausePanel.SetActive(true);
+		Time.timeScale = 0f;
+	}
+
+	public void backPause()
+	{
+		pausePanel.SetActive(false);
+		Time.timeScale = 1f;
+	}
 
 	public void quitGame()
 	{
@@ -151,7 +167,7 @@ public class menu : SingletonBehaviour<menu> {
 	public void createHighscore() {
 		/*
 		Debug.Log("Create save _>");
-		//test
+		//test Mémoire
 		SaveManager.score_struct scoreTest;
 		scoreTest.pseudo = "Marc";
 		scoreTest.score_min = 10;
@@ -171,20 +187,7 @@ public class menu : SingletonBehaviour<menu> {
 		
 	}
 	
-	public void pause()
-	{
-		pausePanel.SetActive(true);
-		Time.timeScale = 0f;
-	}
-	public void backPause()
-	{
-		pausePanel.SetActive(false);
-		Time.timeScale = 1f;
-	}
-	
-	
-
-	//change the menu start and game
+		//change the menu start and game
 	public void changeMenuGameAndStart()
 	{
 		if (!menuStart.activeSelf)
@@ -198,6 +201,39 @@ public class menu : SingletonBehaviour<menu> {
 			UIGame.SetActive(true);
 		}
 	}
+
+	public void gameOver(SaveManager.score_struct score)
+	{
+		gameOverPanel.SetActive(true);
+		Time.timeScale = 0f;
+		SaveManager.Instance.saveScore(score);
+		
+
+		if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
+		{
+			menuLoad();
+		}
+	}
+	/// <summary>
+	/// Pour l'intant mis ici, à déplacer dans le fichier approprié
+	/// </summary>
+	public string convertTmerString(float time)
+	{
+		int min = _get_min(time);
+		int sec = _get_sec(time);
+
+		return (min / 10).ToString() + (min % 10).ToString() + " : " + (sec / 10).ToString() + (sec % 10).ToString();
+	}
+	public int _get_min(float time)
+	{
+		return Mathf.FloorToInt (time / 60);
+	}
+	public int _get_sec(float time)
+	{
+		return Mathf.FloorToInt (time % 60);
+	}
 	
+
+
 
 }

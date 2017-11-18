@@ -22,11 +22,29 @@ public class PlayerController
 
     [SerializeField]
     private string m_rightButton = "RightButton";
+
+    [SerializeField]
+    private string m_pauseButton = "Pause";
     #endregion
 
     public float Horizontal
     {
         get { return Input.GetAxisRaw(m_rightButton) - Input.GetAxisRaw(m_leftButton); }
+    }
+
+    public bool PauseDown
+    {
+        get { return Input.GetButtonDown(m_pauseButton); }
+    }
+
+    public bool Pause
+    {
+        get { return Input.GetButton(m_pauseButton); }
+    }
+
+    public bool PauseUp
+    {
+        get { return Input.GetButtonUp(m_pauseButton); }
     }
 
     public bool SwapDown

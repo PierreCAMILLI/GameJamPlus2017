@@ -32,7 +32,7 @@ public class menu : SingletonBehaviour<menu> {
 		//test Tme
 		//Debug.Log(Time.timeSinceLevelLoad);
 		//Debug.Log(GameManager.Instance.Timer);
-		Debug.Log(convertTmerString(Time.timeSinceLevelLoad));
+		//Debug.Log(convertTimerString(Time.timeSinceLevelLoad));
 		//Debug.Log(_get_min(Time.timeSinceLevelLoad));
 		//Debug.Log(_get_sec(Time.timeSinceLevelLoad));
 
@@ -217,7 +217,7 @@ public class menu : SingletonBehaviour<menu> {
 	/// <summary>
 	/// Pour l'intant mis ici, à déplacer dans le fichier approprié
 	/// </summary>
-	public string convertTmerString(float time)
+	public string convertTimerString(float time)
 	{
 		int min = _get_min(time);
 		int sec = _get_sec(time);

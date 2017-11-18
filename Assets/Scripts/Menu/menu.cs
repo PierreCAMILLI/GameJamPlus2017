@@ -118,7 +118,7 @@ public class menu : SingletonBehaviour<menu> {
 		string scene = "MainMenu";
 		changeMenuGameAndStart();
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
-		GameManager.Instance.InitGame(GameManager.Instance.Mode);
+		GameManager.Instance.Mode = GameManager.GameMode.None;
 	}
 
 	public void backHighscore()

@@ -87,7 +87,7 @@ public class PlayerController
                 _leftPressTime.Down = Time.time;
                 buttonPressed = true;
             }
-            return buttonPressed && Mathf.Abs(_rightPressTime.Down - _leftPressTime.Down) <= Controls.Instance.TimeMultipleTrigger;
+            return buttonPressed && Horizontal == 0f && Mathf.Abs(_rightPressTime.Down - _leftPressTime.Down) <= Controls.Instance.TimeMultipleTrigger;
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ using UnityEngine;
 public class Food : MonoBehaviour {
 
     const string _balanceTag = "Balance";
+    const string _foodTag = "Food";
 
     SpriteRenderer _renderer;
     Collider2D _collider2D;
@@ -42,12 +44,16 @@ public class Food : MonoBehaviour {
 
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void MoveHorizontally(float move)
     {
-        if (collision.gameObject.tag == _balanceTag)
-        {
-            _usePhysicsGravity = true;
-        }
+        transform.Translate(new Vector2(move, 0f));
+    }
+
+    public void Swap()
+    {
+        Vector3 pos = transform.localPosition;
+        pos.x *= -1;
+        transform.localPosition = pos;
     }
 
     #region Gravity
@@ -71,6 +77,18 @@ public class Food : MonoBehaviour {
     }
     #endregion
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (UsePhysicsGravity)
+            return;
+        if(     collision.gameObject.tag == _balanceTag
+            ||  (collision.gameObject.tag == _foodTag && collision.gameObject.GetComponent<Food>().UsePhysicsGravity))
+        {
+            _usePhysicsGravity = true;
+            transform.parent = null;
+        }
+    }
+
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
@@ -79,6 +97,7 @@ public class Food : MonoBehaviour {
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, (Vector2)transform.position + _gravity.normalized);
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position - 
+            (UsePhysicsGravity ? -Physics2D.gravity.normalized : (Vector2)transform.parent.up));
     }
 }

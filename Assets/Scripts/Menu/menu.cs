@@ -13,6 +13,7 @@ public class menu : SingletonBehaviour<menu> {
 	public GameObject highScorePanel;
 	public int buttonchoice;
 	public  Button[] buttonMenu;
+	public Button[] buttonPause;
 	
 
 	// Use this for initialization
@@ -24,15 +25,53 @@ public class menu : SingletonBehaviour<menu> {
 	// Update is called once per frame
 	void Update () {
 		if (SceneManager.GetActiveScene().name == "GameScene") {
-			/*if (Controls.Instance.Player().pause) {
+			
+			//Debug.Log(pausePanel.activeSelf);
+			if (pausePanel.activeSelf)
+			{
+				if (Controls.Instance.Player().PauseDown)
+				{
+					switch (buttonchoice)
+					{
+						case 0:
+						buttonchoice = 0;
+						backPause();
+						break;
 
-			}*/
+						case 1:
+						buttonchoice = 0;
+						backPause();
+						menuLoad();
+						break;
+
+					}
+
+				}
+
+				//Menu
+				buttonchoice = (int)Mathf.Repeat((buttonchoice + (Controls.Instance.Player().RightDown ? 1 : 0) + (Controls.Instance.Player().LeftDown ? -1 : 0)), 2);
+				buttonPause[buttonchoice].Select();
+
+
+			}
+			else
+			{
+				if (Controls.Instance.Player().PauseDown)
+				{
+					pause();
+				}
+			}
+			
+
+			
+
+
 		}
 		if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
 			if (!highScorePanel.activeSelf)
 			{
-				if (Controls.Instance.Player().SwapUp) ///changer pour pause
+				if (Controls.Instance.Player().PauseDown) 
 				{
 					switch (buttonchoice)
 					{ case 0:
@@ -50,16 +89,15 @@ public class menu : SingletonBehaviour<menu> {
 					}
 					
 				}
-				buttonchoice = (int)Mathf.Repeat((buttonchoice + (Controls.Instance.Player().RightDown ? 1 : 0) + (Controls.Instance.Player().LeftDown ? -1 : 0)), 3);
-				
 
-				
+				//Menu
+				buttonchoice = (int)Mathf.Repeat((buttonchoice + (Controls.Instance.Player().RightDown ? 1 : 0) + (Controls.Instance.Player().LeftDown ? -1 : 0)), 3);
 				buttonMenu[buttonchoice].Select();
 
 				
 			}
 			else {
-				if (Controls.Instance.Player().SwapUp) ///changer pour pause
+				if (Controls.Instance.Player().PauseDown) 
 				{
 					backHighscore();
 				}
@@ -75,11 +113,26 @@ public class menu : SingletonBehaviour<menu> {
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.InitGame(GameManager.GameMode.Cooperation);
 	}
+	public void menuLoad()
+	{
+		string scene = "MainMenu";
+		changeMenuGameAndStart();
+		SceneManager.LoadScene(scene, LoadSceneMode.Single);
+		GameManager.Instance.InitGame(GameManager.Instance.Mode);
+	}
+
+	public void backHighscore()
+	{
+		highScorePanel.SetActive(false);
+	}
+
 	public void quitGame()
 	{
 		Application.Quit();
 		Debug.Log("Game closed");
 	}
+
+
 	//A tester
 	public void highscore() {
 		highScorePanel.SetActive(true);
@@ -116,22 +169,21 @@ public class menu : SingletonBehaviour<menu> {
 					}
 				}*/
 	}
-	public void backHighscore()
-	{
-		highScorePanel.SetActive(false);
-	}
+	
 	public void pause()
 	{
 		pausePanel.SetActive(true);
+		Time.timeScale = 0f;
 	}
 	public void backPause()
 	{
 		pausePanel.SetActive(false);
+		Time.timeScale = 1f;
 	}
 	
 	
 
-	//change the menu game and pause
+	//change the menu start and game
 	public void changeMenuGameAndStart()
 	{
 		if (!menuStart.activeSelf)

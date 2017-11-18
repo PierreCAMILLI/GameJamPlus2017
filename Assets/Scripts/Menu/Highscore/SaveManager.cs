@@ -1,145 +1,92 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : SingletonBehaviour<SaveManager>{
 
 
-	//tableau highscore 50
-
-	//void save();
-	//void getsave();
-
-	/*
-
-	public int lastSave;
 
 
 	//Les données sauvegardé de documents et succés
-	public static int nbDocuments;
-	public static bool[] DocumentInGame;
+	public static int nbScore_MAX;
+	public static int nbScore;
+	public static score_struct[] highscore;
 
-	//Tableau sert à mettre les indications de succes, mais en mémoireDur int pour bool.
-	public static int nbSucces;
-	public static string[] Succes;
 
 	//Structure de sauvegarde
-	public struct SaveFile
+	public struct score_struct
 	{
-		public int saveNumber;
-		public string ActualSceneIndex;
-		public float CharacterCoordX;
-		public float CharacterCoordY;
+		public string pseudo;
+		public int score_min;
+		public int score_sec;
 	};
 
-	public static SaveFile saveingame;
-
-	void Awake()
+	new void Awake()
 	{
-		//Construction inGame des sauvegardes futures, list pré-établi d'objets à sauvegardé (pas encore fait).
-		nbDocuments = 30;
-		DocumentInGame = new bool[30];
+		//Construction sauvegarde
+		nbScore_MAX = 10;
+		highscore = new score_struct[10];
 
 
-		//Créatin des succés
-		nbSucces = 10;
-		Succes = new string[10];
-		Succes[0] = "Succes 1: blabla etc...";
-		//Première connection au jeu sauvegarde, indice numéro dernière sauvegarde
-		//Création de la liste de succés
-
-		if (!PlayerPrefs.HasKey("NbLastSave") || PlayerPrefs.GetInt("NbLastSave") < 0)
+		if (!PlayerPrefs.HasKey("nbScore"))
 		{
-			SetSavingInt("NbLastSave", -1);
-
-			for (int i = 0; i < nbSucces; i++)
-			{
-				SetSavingInt("Succes(" + i + ")", 0);
-			}
+			nbScore = 0;
+			PlayerPrefs.SetInt("nbScore", 0);
 
 			//Debug.Log("FirstConnection");
 		}
 		else
 		{
-			lastSave = PlayerPrefs.GetInt("NbLastSave");
-			Debug.Log("Last Save is Number ");
-			Debug.Log(lastSave);
+			nbScore = PlayerPrefs.GetInt("nbScore");
+			for (int i = 0; i < nbScore; i++)
+			{
+				score_struct score;
+				score.pseudo = PlayerPrefs.GetString("pseudo-" + i);
+				score.score_min = PlayerPrefs.GetInt("score_min-" + i);
+				score.score_sec = PlayerPrefs.GetInt("score_sec-" + i);
+				highscore[i] = score;
+			}
 		}
-
-
 	}
+	
 
-	//Crée un template de sauvegarde de cette forme en mémoire, tout à 0 
-	/*
-	 * Heure et date de sauvegarde	"SaveTime-"					jj/mm/aaaa hh:mm
-	 * Nom de la scene actuelle		"ActualSceneName-"			Scene1
-	 * Coodonnées x					"CharacterCoordX-"			0
-	 * coordonnés y					"CharacterCoordY-"			0
-	 * Documents(1)					"Document(" + i + ")-"		0
-	 * etc...
-	 * 
-	 * *
-	public void saveCreation(int index)
+	//sauve le score dans le tableau, dans la mémoire, et retourne la position du joueur
+	int saveScore(score_struct newScore)
 	{
-		//Debug.Log("Creation sauvegarde"+index);
-		SetSavingString("SaveTime-" + index, System.DateTime.Now.ToString("dd/mm/yy HH:mm"));
-		SetSavingString("ActualSceneName-" + index, "Scene1");
-		SetSavingFloat("CharacterCoordX-" + index, 0);
-		SetSavingFloat("CharacterCoordY-" + index, 0);
-
-		for (int i = 0; i < nbDocuments; i++)
-		{
-			SetSavingInt("Document(" + i + ")-" + index, 0);
+		nbScore ++;
+		if (nbScore >= 10) {
+			nbScore = 10;
 		}
-		SetSavingInt("NbLastSave", index);
+
+		PlayerPrefs.SetInt("nbScore", nbScore);
+
+		int i = 0;
+		//Comparation rapide du score
+		while( i < nbScore && 
+			(highscore[i].score_min*100+ highscore[i].score_sec < newScore.score_min * 100 + newScore.score_sec))//
+		{
+			i++;
+		}
+
+		for (int j = nbScore-1; j > i; j--) {
+			highscore[i]= highscore[i-1];
+		}
+		highscore[i] = newScore;
+
+		//Permettra d'afficher à l'écran de fin
+		int index = i;
+
+		//Sauvegarde mémoire
+		for (; i < nbScore; i++)
+		{
+			
+			PlayerPrefs.SetString("pseudo-" + i, highscore[i].pseudo);
+			PlayerPrefs.SetInt("score_min-" + i, highscore[i].score_min);
+			PlayerPrefs.SetInt("score_sec-" + i, highscore[i].score_sec);
+		}
 		PlayerPrefs.Save();
+		return i;
 	}
-
-	//Met à jour la sauvegarde  en mémoire, utilise la position x,y du joueur supposé.
-	//! Tableaux de bool et coordonnés pas encore vérifié, tout sauf date non utilisé
-	/*
-	 * Heure et date de sauvegarde	"SaveTime-"					jj/mm/aaaa hh:mm
-	 * Nom de a scene actuelle		"ActualSceneName-"			?
-	 * Coodonnées x					"CharacterCoordX-"			?
-	 * coordonnés y					"CharacterCoordY-"			?
-	 * Documents(1)					"Document(" + i + ")-"		?
-	 * etc...
-	 * 
-	 * *
-	public static void autoSave(int index, Transform transform)
-	{
-
-		SetSavingString("SaveTime-" + index, System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
-		SetSavingString("ActualSceneName-" + index, SceneManager.GetActiveScene().name);
-		SetSavingFloat("CharacterCoordX-" + index, transform.position.x);
-		SetSavingFloat("CharacterCoordY-" + index, transform.position.y);
-		for (int i = 0; i < nbDocuments; i++)
-		{
-			SetSavingInt("Document(" + i + ")-" + index, System.Convert.ToInt32(DocumentInGame[i]));
-		}
-		SetSavingInt("NbLastSave", index);
-		PlayerPrefs.Save();
-	}
-
-	//Permet de recueillir de la sauvegarde la scene, la position x,y, et d'écrie le tableau de bool des documents.
-	public static void getScore(int index)
-	{
-		saveingame.saveNumber = index;
-
-		saveingame.ActualSceneIndex = PlayerPrefs.GetString("ActualSceneName-" + index);
-		saveingame.CharacterCoordX = PlayerPrefs.GetFloat("CharacterCoordX-" + index);
-		saveingame.CharacterCoordY = PlayerPrefs.GetFloat("CharacterCoordY-" + index);
-
-		for (int i = 0; i < nbDocuments; i++)
-		{
-			DocumentInGame[i] = System.Convert.ToBoolean(PlayerPrefs.GetInt("Document(" + i + ")-" + index));
-		}
-		/*
-		Debug.Log(saveingame.saveNumber);
-		Debug.Log(saveingame.ActualSceneIndex);
-		Debug.Log(saveingame.CharacterCoordX);
-		Debug.Log(saveingame.CharacterCoordY);
-	}
-*/
 
 }

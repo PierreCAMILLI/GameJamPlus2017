@@ -30,30 +30,38 @@ public class menu : SingletonBehaviour<menu> {
 		}
 		if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
-			
-			buttonchoice = (int) Mathf.Repeat((buttonchoice + (Controls.Instance.Player().RightDown ? 1 : 0) + (Controls.Instance.Player().LeftDown ? -1 : 0)) , 3);
-			if (Controls.Instance.Player().RightDown) {
-				Debug.Log(Controls.Instance.Player().RightDown);
-			}
-			
-
-			//Debug.Log(buttonMenu.Length);
-			//Debug.Log("buttonChoice : " + buttonchoice);
-			buttonMenu[buttonchoice].Select();
-			
-			if (Controls.Instance.Player().SwapUp)
+			if (!highScorePanel.activeSelf)
 			{
-				if (buttonchoice == 0)
+				if (Controls.Instance.Player().SwapUp) ///changer pour pause
 				{
-					play();
-				}
-				else if (buttonchoice == 1) {
-					highscore();
-				}
-				else if (buttonchoice == 2)
-				{
-					quitGame();
+					switch (buttonchoice)
+					{ case 0:
+						play();
+						break;
 
+					case 1:
+						highscore();
+						break;
+
+					case 2:
+						quitGame();
+						break;
+
+					}
+					
+				}
+				buttonchoice = (int)Mathf.Repeat((buttonchoice + (Controls.Instance.Player().RightDown ? 1 : 0) + (Controls.Instance.Player().LeftDown ? -1 : 0)), 3);
+				
+
+				
+				buttonMenu[buttonchoice].Select();
+
+				
+			}
+			else {
+				if (Controls.Instance.Player().SwapUp) ///changer pour pause
+				{
+					backHighscore();
 				}
 			}
 		}
@@ -74,7 +82,9 @@ public class menu : SingletonBehaviour<menu> {
 	}
 	//A tester
 	public void highscore() {
-		highScorePanel.SetActive(true);/*
+		highScorePanel.SetActive(true);
+		
+		/*
 		Debug.Log("Construction Higscore panel");
 			for (int i = 0; i < SaveManager.nbSucces; i++)
 			{

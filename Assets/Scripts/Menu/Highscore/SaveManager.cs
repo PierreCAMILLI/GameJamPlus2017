@@ -5,6 +5,11 @@ using UnityEngine;
 public class SaveManager : SingletonBehaviour<SaveManager>{
 
 
+	//tableau highscore 50
+
+	//void save();
+	//void getsave();
+
 	/*
 
 	public int lastSave;

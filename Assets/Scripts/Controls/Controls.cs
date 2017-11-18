@@ -48,6 +48,16 @@ public class PlayerController
         get { return Input.GetAxisRaw(m_rightButton) - Input.GetAxisRaw(m_leftButton); }
     }
 
+    public bool RightDown
+    {
+        get { return Input.GetButtonDown(m_rightButton); }
+    }
+
+    public bool LeftDown
+    {
+        get { return Input.GetButtonDown(m_leftButton); }
+    }
+
     public bool PauseDown
     {
         get { return Input.GetButtonDown(m_pauseButton); }

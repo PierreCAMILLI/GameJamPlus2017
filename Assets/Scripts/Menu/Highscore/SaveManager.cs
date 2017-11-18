@@ -86,7 +86,7 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 			PlayerPrefs.SetInt("score_sec-" + i, highscore[i].score_sec);
 		}
 		PlayerPrefs.Save();
-		return i;
+		return index;
 	}
 
 }

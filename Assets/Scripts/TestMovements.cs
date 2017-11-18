@@ -6,12 +6,16 @@ public class TestMovements : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        rigidbody2D = GetComponent<Rigidbody2D>();
 	}
-	
+
+    Rigidbody2D rigidbody2D;
+
+    [SerializeField]
+    Vector2 gravity;
+
 	// Update is called once per frame
-	void Update () {
-        if (Controls.Instance.Player().RightDown)
-            Debug.Log("Right");
+	void FixedUpdate () {
+        rigidbody2D.AddForce(gravity * rigidbody2D.mass);
 	}
 }

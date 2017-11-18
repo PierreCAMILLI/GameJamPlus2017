@@ -56,6 +56,8 @@ public class Food : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ClampPosition();
+		if(!UsePhysicsGravity)
+		transform.localRotation = Quaternion.identity;
 	}
 
     /// <summary>

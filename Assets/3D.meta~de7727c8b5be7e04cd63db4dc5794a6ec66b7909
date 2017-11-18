@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/3D.meta
+guid: decfdba998127554a9b61cf0ebc84b49
+folderAsset: yes
+timeCreated: 1510953576
+=======
+<<<<<<< HEAD:Assets/3D.meta
+guid: ce55a7fcc73c65a4ebf83544a5fd22d0
+folderAsset: yes
+timeCreated: 1510958197
+=======
+guid: 98b53a13ca779f943bb308ffc909ec14
+folderAsset: yes
+timeCreated: 1510968065
+>>>>>>> bbcdc1658866eaf89cdf349c2163d32e25d68d59:Assets/Prefabs/Menu/Highscore.meta
+>>>>>>> dfbce22900330e1201fac1ac150f8fa06fdf4815:Assets/Prefabs/Menu/Highscore.meta
+licenseType: Free
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

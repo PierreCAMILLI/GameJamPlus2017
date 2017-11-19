@@ -165,6 +165,8 @@ public class Food : MonoBehaviour {
     {
         if(GameManager.Instance != null)
             --(GameManager.Instance.PlayerStats[(int) player].FallenObjects);
+		if (!UsePhysicsGravity)
+			spawner.ReadyToSpawn = true;
         Destroy(gameObject);
     }
 

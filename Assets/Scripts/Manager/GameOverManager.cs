@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,13 @@ public class GameOverManager : SingletonBehaviour<GameOverManager> {
 	// Update is called once per frame
 	void Update()
 	{
+		if (!GameManager.Instance.PlayerStats.Any(x=>x==null) ){
+			if (GameManager.Instance.PlayerStats.Any(x => x.FallenObjects <= 0)) {
+				_gameOver = true;
+				musicAudio.Instance.playGameOver();
+			}
+		}
+
 		ToggleUI(_gameOver);
 
 		if (_gameOver && _endGame)

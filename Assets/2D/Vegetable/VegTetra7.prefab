@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50975376240967604}
   - component: {fileID: 61127468267037362}
   - component: {fileID: 114512147102093496}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: VegTetra7
   m_TagString: Food
   m_Icon: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  _foodType: 1
   spawner: {fileID: 0}
   floorTransform: {fileID: 0}
   _swapped: 0

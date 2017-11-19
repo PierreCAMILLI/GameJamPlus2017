@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50334838132783804}
   - component: {fileID: 61602896797129144}
   - component: {fileID: 114003923373594566}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: FruTetra6
   m_TagString: Food
   m_Icon: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 0
+  _foodType: 2
   spawner: {fileID: 0}
   floorTransform: {fileID: 0}
   _swapped: 0

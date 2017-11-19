@@ -49,12 +49,25 @@ public class GameManager : SingletonBehaviour<GameManager> {
     public bool GameStarted { get { return _startCountdown <= 0f; } }
     #endregion
 
-#region Timer
+    #region Timer
+    [SerializeField]
+    private bool _toggleTimer = false;
+
     private float _timer;
     /// <summary>
     /// Indique la valeur du timer du jeu
     /// </summary>
     public float Timer { get { return _timer; } }
+
+    public void ResetTimer()
+    {
+        _timer = 0f;
+    }
+
+    public void ToggleTimer(bool toggle)
+    {
+        _toggleTimer = toggle;
+    }
 #endregion
 
 #region Player Stats
@@ -74,8 +87,14 @@ public class GameManager : SingletonBehaviour<GameManager> {
         for (int i = 0; i < _playerStats.Length; ++i)
             _playerStats[i] = new PlayerStats();
     }
-	
-	public void InitGame(GameMode mode)
+
+    void Update()
+    {
+        if (_toggleTimer)
+            _timer += Time.deltaTime;
+    }
+
+    public void InitGame(GameMode mode)
     {
         _mode = mode;
         _startCountdown = _startCountdownInit;
@@ -92,7 +111,7 @@ public class PlayerStats
     public float Timer { get { return _timer; } }
 
     private int _fallenObjects;
-    public int FallenObjects { get { return _fallenObjects; } }
+    public int FallenObjects { get { return _fallenObjects; } set { _fallenObjects = value; } }
 
     public void InitGame(GameManager.GameMode mode)
     {

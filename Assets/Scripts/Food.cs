@@ -47,11 +47,6 @@ public class Food : MonoBehaviour {
         _collider2D = GetComponent<Collider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -129,6 +124,7 @@ public class Food : MonoBehaviour {
 
     private void OnBecameInvisible()
     {
+        ++(GameManager.Instance.PlayerStats[(int) player].FallenObjects);
         Destroy(gameObject);
     }
 

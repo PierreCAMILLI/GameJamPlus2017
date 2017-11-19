@@ -14,6 +14,12 @@ public class Food : MonoBehaviour {
         Player2 = 1
     }
 
+    public enum FoodType
+    {
+        Fruit,
+        Vegetable
+    }
+
     const string _balanceTag = "Balance";
     const string _foodTag = "Food";
 
@@ -22,6 +28,9 @@ public class Food : MonoBehaviour {
     Rigidbody2D _rigidbody2D;
 
     public Player player;
+
+    private FoodType _foodType;
+    public FoodType Type { get { return _foodType; } }
 
     public FoodSpawner spawner;
 
@@ -105,7 +114,7 @@ public class Food : MonoBehaviour {
         else
         {
             _rigidbody2D.gravityScale = 0f;
-            transform.position += -transform.parent.up * _speed * Time.deltaTime;
+            transform.position += -transform.parent.up * _speed * GameManager.Instance.FallSpeedMultiplier * Time.deltaTime;
         }
     }
     #endregion
@@ -124,7 +133,7 @@ public class Food : MonoBehaviour {
 
     private void OnBecameInvisible()
     {
-        ++(GameManager.Instance.PlayerStats[(int) player].FallenObjects);
+        --(GameManager.Instance.PlayerStats[(int) player].FallenObjects);
         Destroy(gameObject);
     }
 

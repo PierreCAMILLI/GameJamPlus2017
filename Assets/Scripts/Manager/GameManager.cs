@@ -68,6 +68,12 @@ public class GameManager : SingletonBehaviour<GameManager> {
     {
         _toggleTimer = toggle;
     }
+    #endregion
+
+    #region Fall Objects
+    [SerializeField]
+    private float _fallSpeedMultiplier = 1.0f;
+    public float FallSpeedMultiplier { get { return _fallSpeedMultiplier; } set { _fallSpeedMultiplier = value; } }
 #endregion
 
 #region Player Stats
@@ -78,9 +84,9 @@ public class GameManager : SingletonBehaviour<GameManager> {
     public PlayerStats[] PlayerStats { get { return _playerStats; } }
     public PlayerStats FirstPlayerStats { get { return _playerStats[0]; } }
     public PlayerStats SecondPlayerStats { get { return _playerStats[1]; } }
-    #endregion
+#endregion
 
-	public bool bool_GameOver;
+	public bool _gameOver;
 
     void Start()
     {
@@ -100,8 +106,11 @@ public class GameManager : SingletonBehaviour<GameManager> {
         _startCountdown = _startCountdownInit;
         _timer = 0f;
 
-        foreach (PlayerStats playerStat in _playerStats)
-            playerStat.InitGame(mode);
+        for (int i = 0; i < _playerStats.Length; ++i)
+        {
+            _playerStats[i] = new PlayerStats();
+            _playerStats[i].InitGame(mode);
+        }
     }
 }
 

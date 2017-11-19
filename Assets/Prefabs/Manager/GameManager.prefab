@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114461230248397138}
   - component: {fileID: 114753805572586866}
   - component: {fileID: 114659282552800788}
+  - component: {fileID: 114709889542120550}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -57,7 +58,21 @@ MonoBehaviour:
   _startCountdownInit: 3
   _limitObjectsToFall: 30
   _offMiddleZoneWidth: 1
-  _toggleTimer: 0
+  colisionFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _toggleTimer: 1
   _fallSpeedMultiplier: 1
   debug_InitCoopGame: 0
 --- !u!114 &114659282552800788
@@ -126,6 +141,18 @@ MonoBehaviour:
   - Garlic
   nbScore_MAX: 10
   nbScore: 3
+--- !u!114 &114709889542120550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094091058824948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8a899cb3ad6394abdfe4a98771a650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dontDestroyOnLoad: 0
 --- !u!114 &114753805572586866
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -33,7 +33,8 @@ public class GameOverManager : SingletonBehaviour<GameOverManager> {
 		if (!GameManager.Instance.PlayerStats.Any(x=>x==null) ){
 			if (GameManager.Instance.PlayerStats.Any(x => x.FallenObjects <= 0)) {
 				_gameOver = true;
-				musicAudio.Instance.playGameOver();
+                if(musicAudio.Instance != null)
+				    musicAudio.Instance.playGameOver();
 			}
 		}
 
@@ -52,7 +53,8 @@ public class GameOverManager : SingletonBehaviour<GameOverManager> {
 		}
 		else if (_gameOver && !_endGame)
 		{
-			menu.Instance.backPause();
+            if(menu.Instance != null)
+			    menu.Instance.backPause();
 			Time.timeScale = 0f;
 			int classmt = SaveManager.Instance.saveScore(score);
 			if (classmt > 9)

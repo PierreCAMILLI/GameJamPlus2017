@@ -17,8 +17,17 @@ public class menu : SingletonBehaviour<menu> {
 	public Button[] buttonPause;
 	public GameObject checkp1;
 	public GameObject checkp2;
+	public GameObject LBp1;
+	public GameObject RBp1;
+	public GameObject LBp2;
+	public GameObject RBp2;
+	public GameObject LB2p1;
+	public GameObject RB2p1;
+	public GameObject LB2p2;
+	public GameObject RB2p2;
 	private bool _playcheck;
 	private bool _playcorout;
+
 
 	public GameObject scoreText;
 	public GameObject contentScore;
@@ -28,8 +37,6 @@ public class menu : SingletonBehaviour<menu> {
 		createHighscore();
 		buttonchoice = 0;
 		_playcheck = false;
-
-
 	}
 
 	// Update is called once per frame
@@ -86,10 +93,44 @@ public class menu : SingletonBehaviour<menu> {
 		else if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
 
+			if (Controls.Instance.Player(0).Left) {
+				LBp1.SetActive (false);
+				LB2p1.SetActive (true);
+			} 
+			else {
+					LBp1.SetActive (true);
+					LB2p1.SetActive (false);
+
+			}
+			if (Controls.Instance.Player(0).Right) {
+				RBp1.SetActive (false);
+				RB2p1.SetActive (true);
+			} 
+			else {
+					RBp1.SetActive (true);
+					RB2p1.SetActive (false);
+
+			}
+			if (Controls.Instance.Player(1).Left) {
+				LBp2.SetActive (false);
+				LB2p2.SetActive (true);
+			} else {
+					LBp2.SetActive (true);
+					LB2p2.SetActive (false);
+
+			}
+			if (Controls.Instance.Player(1).Right) {
+				RBp2.SetActive (false);
+				RB2p2.SetActive (true);
+			} else {
+					RBp2.SetActive (true);
+					RB2p2.SetActive (false);
+
+			}
 
 			if (Controls.Instance.Player(0).Swap)
 			{
-				Debug.Log("Player 1 here");
+				//Debug.Log("Player 1 here");
 				checkp1.SetActive(true);
 
 			}
@@ -102,7 +143,7 @@ public class menu : SingletonBehaviour<menu> {
 
 			if (Controls.Instance.Player(1).Swap)
 			{
-				Debug.Log("Player 2 here");
+				//Debug.Log("Player 2 here");
 				checkp2.SetActive(true);
 
 			}
@@ -122,7 +163,7 @@ public class menu : SingletonBehaviour<menu> {
 					_playcheck = true;
 				}
 			}
-
+			
 			//Menu
 			//buttonchoice1 = (int)Mathf.Repeat((buttonchoice1 + (Controls.Instance.Player(0).RightDown ? 1 : 0) + (Controls.Instance.Player(0).LeftDown ? -1 : 0)), 3);
 			//buttonMenu[buttonchoice].Select();
@@ -144,6 +185,7 @@ public class menu : SingletonBehaviour<menu> {
 		changeMenuGameAndStart();
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.InitGame(GameManager.GameMode.Cooperation);
+		musicAudio.Instance.playGameTheme();
 	}
 
 	public void menuLoad()
@@ -154,6 +196,7 @@ public class menu : SingletonBehaviour<menu> {
 		changeMenuGameAndStart();
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.Mode = GameManager.GameMode.None;
+		musicAudio.Instance.playMenuTheme();
 	}
 
 	public void pause()

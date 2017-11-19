@@ -186,6 +186,7 @@ public class menu : SingletonBehaviour<menu> {
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.InitGame(GameManager.GameMode.Cooperation);
 		musicAudio.Instance.playGameTheme();
+
 	}
 
 	public void menuLoad()
@@ -213,7 +214,8 @@ public class menu : SingletonBehaviour<menu> {
 
 	public void quitGame()
 	{
-		Application.Quit();
+		string scene = "SceneCredit";
+		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		Debug.Log("Game closed");
 	}
 

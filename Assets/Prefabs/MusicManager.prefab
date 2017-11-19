@@ -54,7 +54,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -132,9 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd555a6d274aa24f953d64f1e4915dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dontDestroyOnLoad: 0
-  MenuTheme: {fileID: 0}
-  GameTheme: {fileID: 0}
+  m_dontDestroyOnLoad: 1
+  MenuTheme: {fileID: 8300000, guid: 73d3c18e59e8d764b9830428045bcb7d, type: 3}
+  GameTheme: {fileID: 8300000, guid: fe443673c352bba4daee88fbb1068708, type: 3}
   speakers: {fileID: 82052724137160212}
-  volMenu: 0
-  volGame: 0
+  volMenu: 0.5
+  volGame: 0.5

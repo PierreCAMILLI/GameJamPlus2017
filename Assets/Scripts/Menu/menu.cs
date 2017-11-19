@@ -122,7 +122,7 @@ public class menu : SingletonBehaviour<menu> {
 					_playcheck = true;
 				}
 			}
-
+			
 			//Menu
 			//buttonchoice1 = (int)Mathf.Repeat((buttonchoice1 + (Controls.Instance.Player(0).RightDown ? 1 : 0) + (Controls.Instance.Player(0).LeftDown ? -1 : 0)), 3);
 			//buttonMenu[buttonchoice].Select();
@@ -144,6 +144,7 @@ public class menu : SingletonBehaviour<menu> {
 		changeMenuGameAndStart();
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.InitGame(GameManager.GameMode.Cooperation);
+		musicAudio.Instance.playGameTheme();
 	}
 
 	public void menuLoad()
@@ -154,6 +155,7 @@ public class menu : SingletonBehaviour<menu> {
 		changeMenuGameAndStart();
 		SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		GameManager.Instance.Mode = GameManager.GameMode.None;
+		musicAudio.Instance.playMenuTheme();
 	}
 
 	public void pause()

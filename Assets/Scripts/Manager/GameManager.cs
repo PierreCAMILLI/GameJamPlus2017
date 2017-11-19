@@ -88,10 +88,12 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
 	public bool _gameOver;
 
+    public bool debug_InitCoopGame = false;
+
     void Start()
     {
-        for (int i = 0; i < _playerStats.Length; ++i)
-            _playerStats[i] = new PlayerStats();
+        if (debug_InitCoopGame)
+            InitGame(GameMode.Cooperation);
     }
 
     void Update()

@@ -31,4 +31,20 @@ public class Balance : SingletonBehaviour<Balance> {
         pos = transform.InverseTransformVector(pos);
         return pos;
     }
+
+    public bool IsInGoodSide(Food.FoodType type, Vector2 position)
+    {
+        Vector2 pos = transform.InverseTransformPoint(position);
+        switch (type)
+        {
+            case Food.FoodType.Fruit:
+                return pos.x < 0f;
+            case Food.FoodType.Vegetable:
+                return pos.x >= 0f;
+            case Food.FoodType.Both:
+                return true;
+            default:
+                return false;
+        }
+    }
 }

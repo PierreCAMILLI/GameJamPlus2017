@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager> {
@@ -50,12 +51,31 @@ public class GameManager : SingletonBehaviour<GameManager> {
     public bool GameStarted { get { return _startCountdown <= 0f; } }
     #endregion
 
-#region Timer
+    #region Timer
+    [SerializeField]
+    private bool _toggleTimer = false;
+
     private float _timer;
     /// <summary>
     /// Indique la valeur du timer du jeu
     /// </summary>
     public float Timer { get { return _timer; } }
+
+    public void ResetTimer()
+    {
+        _timer = 0f;
+    }
+
+    public void ToggleTimer(bool toggle)
+    {
+        _toggleTimer = toggle;
+    }
+    #endregion
+
+    #region Fall Objects
+    [SerializeField]
+    private float _fallSpeedMultiplier = 1.0f;
+    public float FallSpeedMultiplier { get { return _fallSpeedMultiplier; } set { _fallSpeedMultiplier = value; } }
 #endregion
 
 #region Player Stats
@@ -66,12 +86,26 @@ public class GameManager : SingletonBehaviour<GameManager> {
     public PlayerStats[] PlayerStats { get { return _playerStats; } }
     public PlayerStats FirstPlayerStats { get { return _playerStats[0]; } }
     public PlayerStats SecondPlayerStats { get { return _playerStats[1]; } }
-    #endregion
+#endregion
+
+
+    public bool debug_InitCoopGame = false;
+
+
 
     void Start()
     {
-        for (int i = 0; i < _playerStats.Length; ++i)
-            _playerStats[i] = new PlayerStats();
+        if (debug_InitCoopGame)
+            InitGame(GameMode.Cooperation);
+    }
+
+    void Update()
+    {
+        if (_toggleTimer)
+            _timer += Time.deltaTime;
+        if (FoodSpawner.Spawners.All(x => x.ReadyToSpawn))
+            foreach (FoodSpawner spawner in FoodSpawner.Spawners)
+                spawner.Spawn();
     }
 
     public void InitGame(GameMode mode)
@@ -80,8 +114,11 @@ public class GameManager : SingletonBehaviour<GameManager> {
         _startCountdown = _startCountdownInit;
         _timer = 0f;
 
-        foreach (PlayerStats playerStat in _playerStats)
-            playerStat.InitGame(mode);
+        for (int i = 0; i < _playerStats.Length; ++i)
+        {
+            _playerStats[i] = new PlayerStats();
+            _playerStats[i].InitGame(mode);
+        }
     }
 }
 
@@ -91,12 +128,16 @@ public class PlayerStats
     public float Timer { get { return _timer; } }
 
     private int _fallenObjects;
-    public int FallenObjects { get { return _fallenObjects; } }
+    public int FallenObjects { get { return _fallenObjects; } set { _fallenObjects = value; } }
+
+    private float _fallSpeed = 1.0f;
+    public float FallSpeed { get { return _fallSpeed; } set { _fallSpeed = value; } }
 
     public void InitGame(GameManager.GameMode mode)
     {
         _timer = 0f;
         _fallenObjects = GameManager.Instance.LimitObjectsToFall;
+        _fallSpeed = 1f;
     }
 
 }

@@ -9,19 +9,19 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1850587060792142}
+  m_RootGameObject: {fileID: 1094091058824948}
   m_IsPrefabParent: 1
---- !u!1 &1850587060792142
+--- !u!1 &1094091058824948
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4538009602604056}
-  - component: {fileID: 114973669227186056}
-  - component: {fileID: 114854657353248986}
-  - component: {fileID: 114766009272600836}
+  - component: {fileID: 4241555799097230}
+  - component: {fileID: 114461230248397138}
+  - component: {fileID: 114753805572586866}
+  - component: {fileID: 114659282552800788}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -29,12 +29,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4538009602604056
+--- !u!4 &4241555799097230
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1850587060792142}
+  m_GameObject: {fileID: 1094091058824948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.9641515, y: 0.04609114, z: 4.838996}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -42,44 +42,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114766009272600836
+--- !u!114 &114461230248397138
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1850587060792142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f246f4407f7d6e84d81be932273a7468, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_dontDestroyOnLoad: 1
---- !u!114 &114854657353248986
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1850587060792142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0264e76fb60c643afbfbbb13650a3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_dontDestroyOnLoad: 1
-  _timeMultipleTriggers: 0.25
-  _playerControls:
-  - m_leftButton: Left_1
-    m_rightButton: Right_1
-    m_pauseButton: Pause
-  - m_leftButton: Left_2
-    m_rightButton: Right_2
-    m_pauseButton: Pause
---- !u!114 &114973669227186056
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1850587060792142}
+  m_GameObject: {fileID: 1094091058824948}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a54813f3b06d5b4bb34716337ccf13b, type: 3}
@@ -88,3 +56,93 @@ MonoBehaviour:
   m_dontDestroyOnLoad: 1
   _startCountdownInit: 3
   _limitObjectsToFall: 30
+  _offMiddleZoneWidth: 1
+  _toggleTimer: 0
+  _fallSpeedMultiplier: 1
+  debug_InitCoopGame: 0
+--- !u!114 &114659282552800788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094091058824948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f246f4407f7d6e84d81be932273a7468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dontDestroyOnLoad: 1
+  nameP1:
+  - Barry
+  - Tim
+  - Fabrice
+  - Cleo
+  - Pierre
+  - Ramon
+  - Jules
+  - Gabby
+  - Marc
+  - Paolo
+  - Sergei
+  - Charly
+  - Jeremiah
+  - Carla
+  - Eliaz
+  - Petra
+  - Lara
+  - Sarah
+  - Mathieu
+  - Ingrid
+  - Alexia
+  - Tobi
+  - Crystal
+  - Ernest
+  - Salvador
+  nameP2:
+  - Banana
+  - Tomato
+  - Zucchini
+  - Carrot
+  - Pineapple
+  - Radish
+  - Cherry
+  - Grape
+  - Mushroom
+  - Pear
+  - Strawberry
+  - Coconut
+  - Orange
+  - Papaya
+  - Fig
+  - Potato
+  - Cabbage
+  - Pumpkin
+  - Leek
+  - Celery
+  - Apple
+  - Cucumber
+  - Kiwi
+  - Peas
+  - Garlic
+  nbScore_MAX: 10
+  nbScore: 3
+--- !u!114 &114753805572586866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094091058824948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0264e76fb60c643afbfbbb13650a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dontDestroyOnLoad: 1
+  _timeMultipleTriggers: 0.25
+  _playerControls:
+  - _leftButton: 354
+    _rightButton: 355
+    _pauseButton: 337
+  - _leftButton: 374
+    _rightButton: 375
+    _pauseButton: 377

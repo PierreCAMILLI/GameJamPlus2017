@@ -14,6 +14,13 @@ public class Food : MonoBehaviour {
         Player2 = 1
     }
 
+    public enum FoodType
+    {
+        Fruit,
+        Vegetable,
+        Both
+    }
+
     const string _balanceTag = "Balance";
     const string _foodTag = "Food";
 
@@ -23,6 +30,11 @@ public class Food : MonoBehaviour {
 
     public Player player;
 
+    [SerializeField]
+    private FoodType _foodType;
+    public FoodType Type { get { return _foodType; } }
+
+    [HideInInspector]
     public FoodSpawner spawner;
 
     public Transform floorTransform;
@@ -47,11 +59,6 @@ public class Food : MonoBehaviour {
         _collider2D = GetComponent<Collider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -93,10 +100,20 @@ public class Food : MonoBehaviour {
         }
         transform.localPosition = pos;
         _swapped = true;
-		Collider2D colliders = new Collider2D[1];
+		Collider2D[] colliders = new Collider2D[1];
 		int nbOverlap = _collider2D.OverlapCollider (GameManager.Instance.colisionFilter, colliders);
 		if (nbOverlap > 0) {
-			spawner.
+			spawner.ReadyToSpawn = true;
+
+			GameObject go = colliders [0].gameObject;
+			Food food = go.GetComponent<Food> ();
+
+			if (food != null && !food.UsePhysicsGravity) {
+				food.spawner.ReadyToSpawn = true;
+			}
+
+			Destroy(go);
+			Destroy (gameObject);
 		}
     }
 
@@ -115,7 +132,7 @@ public class Food : MonoBehaviour {
         else
         {
             _rigidbody2D.gravityScale = 0f;
-            transform.position += -transform.parent.up * _speed * Time.deltaTime;
+            transform.position += -transform.parent.up * _speed * GameManager.Instance.FallSpeedMultiplier * GameManager.Instance.PlayerStats[(int) player].FallSpeed * Time.deltaTime;
         }
     }
     #endregion
@@ -127,13 +144,27 @@ public class Food : MonoBehaviour {
         if(     collision.gameObject.tag == _balanceTag
             ||  (collision.gameObject.tag == _foodTag && collision.gameObject.GetComponent<Food>().UsePhysicsGravity))
         {
+            spawner.ReadyToSpawn = true;
             _usePhysicsGravity = true;
             transform.parent = null;
+
+            // Check si le bloc est posé du bon côté de la balance
+            if(!Balance.Instance.IsInGoodSide(Type, transform.position))
+            {
+                --(GameManager.Instance.PlayerStats[(int)player].FallenObjects);
+                MalusManager.Instance.Give<AccelerateFallMalus>((byte)player);
+            }
+            else
+            {
+                MalusManager.Instance.RemoveMalus((byte)player);
+            }
         }
     }
 
     private void OnBecameInvisible()
     {
+        if(GameManager.Instance != null)
+            --(GameManager.Instance.PlayerStats[(int) player].FallenObjects);
         Destroy(gameObject);
     }
 

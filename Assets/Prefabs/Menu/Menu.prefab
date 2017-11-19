@@ -729,6 +729,8 @@ MonoBehaviour:
   buttonPause:
   - {fileID: 114791450062323670}
   - {fileID: 114155955592785360}
+  checkp1: {fileID: 1400493986019188}
+  checkp2: {fileID: 1161523634504702}
   scoreText: {fileID: 1153708649212254, guid: 90f5323dbc320664d834dd457627fe24, type: 2}
   contentScore: {fileID: 1120171769729832}
 --- !u!114 &114146412236242002
@@ -2567,7 +2569,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1649358567583454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.099976, y: 23.300049, z: 0}
+  m_LocalPosition: {x: 24.100098, y: 23.300049, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224896411355936528}
@@ -2576,7 +2578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25.900024, y: -26.699951}
+  m_AnchoredPosition: {x: -25.899902, y: -26.699951}
   m_SizeDelta: {x: 51.8, y: 53.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224969056793994280

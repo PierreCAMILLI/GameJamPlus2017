@@ -15,6 +15,10 @@ public class menu : SingletonBehaviour<menu> {
 
 	public int buttonchoice;
 	public Button[] buttonPause;
+	public GameObject checkp1;
+	public GameObject checkp2;
+	private bool _playcheck;
+	private bool _playcorout;
 
 	public GameObject scoreText;
 	public GameObject contentScore;
@@ -23,7 +27,8 @@ public class menu : SingletonBehaviour<menu> {
 	void Start () {
 		createHighscore();
 		buttonchoice = 0;
-		
+		_playcheck = false;
+
 
 	}
 
@@ -85,19 +90,37 @@ public class menu : SingletonBehaviour<menu> {
 			if (Controls.Instance.Player(0).Swap)
 			{
 				Debug.Log("Player 1 here");
-				//change sprite player 1
+				checkp1.SetActive(true);
 
 			}
+			else {
+				if (!_playcheck)
+				{
+					checkp1.SetActive(false);
+				}
+			}
+
 			if (Controls.Instance.Player(1).Swap)
 			{
 				Debug.Log("Player 2 here");
-				//change sprite player 2
+				checkp2.SetActive(true);
 
+			}
+			else
+			{
+				if (!_playcheck)
+				{
+					checkp2.SetActive(false);
+				}
 			}
 			if (Controls.Instance.Player(0).Swap && Controls.Instance.Player(1).Swap)
 			{
-				Debug.Log("play");
-				play();
+				if (!_playcorout)
+				{
+					Debug.Log("play");
+					StartCoroutine("PlayDelay");
+					_playcheck = true;
+				}
 			}
 
 			//Menu
@@ -200,6 +223,14 @@ public class menu : SingletonBehaviour<menu> {
 		}
 	}
 
-	
+	IEnumerator PlayDelay() {
+		_playcorout = true;
+		yield return new WaitForSecondsRealtime(2f);
+		_playcheck = false;
+		checkp1.SetActive(false);
+		checkp2.SetActive(false);
+		play();
+		_playcorout = false;
+	}
 
 }

@@ -437,7 +437,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 7
 --- !u!114 &883111209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,7 +476,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 927244234}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 10, z: 0}
+  m_LocalPosition: {x: 0.26666, y: 16.66, z: 0}
   m_LocalScale: {x: 0.06666667, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 883111206}
@@ -494,6 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596ecc0c6d93ba444a1d989ac144300a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepSpawn: 1
   _foodInstances:
   - {fileID: 114199130103870436, guid: 29c66b1ea777cec4b9b278c7501515d3, type: 2}
   - {fileID: 114153963024122990, guid: 3b5bb1349d0b58c41a0e621ddfd98bf1, type: 2}
@@ -503,7 +504,7 @@ MonoBehaviour:
   - {fileID: 114843882571645560, guid: 7a4d4b86f29d0ac498a2f37173804b22, type: 2}
   - {fileID: 114512147102093496, guid: e4bd347a454aa5742a68ca8e234cd566, type: 2}
   _spawnArea:
-    width: 7.5
+    width: 8
     height: 0
   _player: 1
   _floorTransform: {fileID: 883111206}
@@ -536,6 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596ecc0c6d93ba444a1d989ac144300a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepSpawn: 1
   _foodInstances:
   - {fileID: 114994709496643504, guid: 68f8b1b783308dc45a7638b83c2aa442, type: 2}
   - {fileID: 114806236742680186, guid: 1259e9da9c4621240b2bc51aa1b69ebf, type: 2}
@@ -545,7 +547,7 @@ MonoBehaviour:
   - {fileID: 114003923373594566, guid: e74f37bf23941944d9291311bba2c805, type: 2}
   - {fileID: 114199911216944524, guid: 588af6ffd11abe1419f808e9ee4996a2, type: 2}
   _spawnArea:
-    width: 7.5
+    width: 8
     height: 0
   _player: 0
   _floorTransform: {fileID: 883111206}
@@ -557,7 +559,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1147991031}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 10, z: 0}
+  m_LocalPosition: {x: -0.26666, y: 16.66, z: 0}
   m_LocalScale: {x: 0.06666667, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 883111206}

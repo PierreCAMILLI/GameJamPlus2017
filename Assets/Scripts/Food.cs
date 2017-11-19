@@ -81,7 +81,7 @@ public class Food : MonoBehaviour {
     public void Swap()
     {
         Vector3 pos = transform.localPosition;
-        pos.x *= -1;
+        // pos.x *= -1;
         switch (player)
         {
             case Player.Player1:
@@ -93,6 +93,11 @@ public class Food : MonoBehaviour {
         }
         transform.localPosition = pos;
         _swapped = true;
+		Collider2D colliders = new Collider2D[1];
+		int nbOverlap = _collider2D.OverlapCollider (GameManager.Instance.colisionFilter, colliders);
+		if (nbOverlap > 0) {
+			spawner.
+		}
     }
 
     #region Gravity

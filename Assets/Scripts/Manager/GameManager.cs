@@ -18,7 +18,8 @@ public class GameManager : SingletonBehaviour<GameManager> {
     [SerializeField]
     private float _offMiddleZoneWidth = 1f;
     public float OffMiddleZoneWidth { get { return _offMiddleZoneWidth; } }
-    #endregion
+	public ContactFilter2D colisionFilter;
+	#endregion
 
     #region Game Mode
     public enum GameMode

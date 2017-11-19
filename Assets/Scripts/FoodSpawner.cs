@@ -6,6 +6,7 @@ public class FoodSpawner : MonoBehaviour {
 
     private static FoodSpawner[] _spawners;
     public static IList<FoodSpawner> Spawners { get { return _spawners; } }
+	public float stepSpawn = 1f;
 
     [System.Serializable]
     public struct Rect2D
@@ -62,10 +63,11 @@ public class FoodSpawner : MonoBehaviour {
 
             // Fait apparaitre l'objet sur une position aléatoire
             Vector2 pos = new Vector2(
-                Random.Range(- _spawnArea.width * 0.5f, _spawnArea.width * 0.5f),
-                Random.Range(-_spawnArea.height * 0.5f, _spawnArea.height * 0.5f)
+//				Random.Range(- _spawnArea.width * stepSpawn, _spawnArea.width * stepSpawn),
+				0f,
+				Random.Range(-_spawnArea.height * stepSpawn, _spawnArea.height * stepSpawn)
                 );
-            pos.x = pos.x - Mathf.Repeat(pos.x, FoodController._moveStep);
+            //pos.x = pos.x;
 
             // Détermine si la pièce appartient au premier ou deuxième joueur
             instance.player = _player;

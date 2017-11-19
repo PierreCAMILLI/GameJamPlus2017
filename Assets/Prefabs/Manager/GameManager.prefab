@@ -72,6 +72,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 1
+  nameP1: []
+  nameP2: []
   nbScore_MAX: 0
   nbScore: 0
 --- !u!114 &114753805572586866
@@ -91,6 +93,6 @@ MonoBehaviour:
   - _leftButton: 354
     _rightButton: 355
     _pauseButton: 337
-  - _leftButton: 354
-    _rightButton: 355
-    _pauseButton: 337
+  - _leftButton: 374
+    _rightButton: 375
+    _pauseButton: 377

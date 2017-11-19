@@ -89,7 +89,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public bool debug_InitCoopGame = false;
 
-    public bool debug_InitCoopGame = false;
+
 
     void Start()
     {

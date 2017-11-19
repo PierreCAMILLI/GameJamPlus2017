@@ -209,7 +209,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 0
-  _ui: {fileID: 0}
+  _ui: {fileID: 224606506447205336}
+  textGameOver: {fileID: 114123316724934446}
+  _gameOver: 0
+  _endGame: 0
 --- !u!114 &114677362847194002
 MonoBehaviour:
   m_ObjectHideFlags: 1

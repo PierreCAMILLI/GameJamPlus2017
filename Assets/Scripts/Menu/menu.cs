@@ -40,7 +40,7 @@ public class menu : SingletonBehaviour<menu> {
 		if (SceneManager.GetActiveScene().name == "GameScene")
 		{
 
-			//Debug.Log(pausePanel.activeSelf);
+
 			if (pausePanel.activeSelf && !gameOverPanel.activeSelf)
 			{
 				if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
@@ -69,16 +69,14 @@ public class menu : SingletonBehaviour<menu> {
 
 
 			}
-			else if (!gameOverPanel.activeSelf)
+			else if (!gameOverPanel.activeSelf && !pausePanel.activeSelf)
 			{
 				if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
 				{
 					pause();
 				}
 			}
-			else if (gameOverPanel.activeSelf) {
-				//gameOver();
-			} 
+			
 		}
 		else if (SceneManager.GetActiveScene().name == "MainMenu")
 		{

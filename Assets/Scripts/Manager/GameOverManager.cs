@@ -44,6 +44,7 @@ public class GameOverManager : SingletonBehaviour<GameOverManager> {
 		}
 		else if (_gameOver && !_endGame)
 		{
+			menu.Instance.backPause();
 			Time.timeScale = 0f;
 			int classmt = SaveManager.Instance.saveScore(score);
 			if (classmt > 9)
@@ -66,7 +67,7 @@ public class GameOverManager : SingletonBehaviour<GameOverManager> {
 
     public void ToggleUI(bool toggle)
     {
-		menu.Instance.backPause();
+		
         _ui.gameObject.SetActive(toggle);
 
 	

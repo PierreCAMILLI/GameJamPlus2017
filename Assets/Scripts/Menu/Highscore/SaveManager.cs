@@ -6,9 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class SaveManager : SingletonBehaviour<SaveManager>{
 
+	#region Name array
+
+	public string[] nameP1;
+	public string[] nameP2;
+
+
+	#endregion
+	#region Save
 	private bool resetSave;
-
-
+	
 	//Les données sauvegardé de documents et succés
 	[SerializeField]
 	public int nbScore_MAX;
@@ -25,6 +32,9 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 		public int score_sec;
 	};
 
+	#endregion
+
+
 	void Awake()
 	{
 		resetSave = false;
@@ -35,8 +45,10 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 
 		Highscores = new List<score_struct>();
 
+		nameP1 = new string[] { "Henry " };
+		nameP2 = new string[] { "Henry " };
 
-		if (!PlayerPrefs.HasKey("nbScore"))
+	if (!PlayerPrefs.HasKey("nbScore"))
 		{
 			nbScore = 0;
 			PlayerPrefs.SetInt("nbScore", 0);

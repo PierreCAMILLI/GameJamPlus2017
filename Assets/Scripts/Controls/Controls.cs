@@ -22,16 +22,16 @@ public class PlayerController
 {
 #region Unity Axis
     [SerializeField]
-    private string m_leftButton = "LeftButton";
+    KeyCode _leftButton = KeyCode.Joystick1Button4;
 
     [SerializeField]
-    private string m_rightButton = "RightButton";
+    KeyCode _rightButton = KeyCode.Joystick1Button5;
 
     [SerializeField]
-    private string m_pauseButton = "Pause";
-#endregion
+    KeyCode _pauseButton = KeyCode.JoystickButton7;
+    #endregion
 
-#region Double Press
+    #region Double Press
 
     struct PressTime
     {
@@ -45,44 +45,54 @@ public class PlayerController
 
     public float Horizontal
     {
-        get { return Input.GetAxisRaw(m_rightButton) - Input.GetAxisRaw(m_leftButton); }
+        get { return (Right ? 1 : 0) - (Left ? 1 : 0); }
     }
 
     public bool RightDown
     {
-        get { return Input.GetButtonDown(m_rightButton); }
+        get { return Input.GetKeyDown(_rightButton); }
     }
 
     public bool LeftDown
     {
-        get { return Input.GetButtonDown(m_leftButton); }
+        get { return Input.GetKeyDown(_leftButton); }
+    }
+
+    public bool Right
+    {
+        get { return Input.GetKey(_rightButton); }
+    }
+
+    public bool Left
+    {
+        get { return Input.GetKey(_leftButton); }
     }
 
     public bool PauseDown
     {
-        get { return Input.GetButtonDown(m_pauseButton); }
+        get { return Input.GetKeyDown(_pauseButton); }
     }
 
     public bool Pause
     {
-        get { return Input.GetButton(m_pauseButton); }
+        get { return Input.GetKey(_pauseButton); }
     }
 
     public bool PauseUp
     {
-        get { return Input.GetButtonUp(m_pauseButton); }
+        get { return Input.GetKeyUp(_pauseButton); }
     }
 
     public bool SwapDown
     {
         get {
             bool buttonPressed = false;
-            if (Input.GetButtonDown(m_rightButton))
+            if (Input.GetKeyDown(_rightButton))
             {
                 _rightPressTime.Down = Time.time;
                 buttonPressed = true;
             }
-            if (Input.GetButtonDown(m_leftButton))
+            if (Input.GetKeyDown(_leftButton))
             {
                 _leftPressTime.Down = Time.time;
                 buttonPressed = true;
@@ -93,7 +103,7 @@ public class PlayerController
 
     public bool Swap
     {
-        get { return Input.GetButton(m_rightButton) && Input.GetButton(m_leftButton); }
+        get { return Input.GetKey(_rightButton) && Input.GetKey(_leftButton); }
     }
     
     public bool SwapUp
@@ -101,12 +111,12 @@ public class PlayerController
         get
         {
             bool buttonPressed = false;
-            if (Input.GetButtonUp(m_rightButton))
+            if (Input.GetKeyUp(_rightButton))
             {
                 _rightPressTime.Up = Time.time;
                 buttonPressed = true;
             }
-            if (Input.GetButtonUp(m_leftButton))
+            if (Input.GetKeyUp(_leftButton))
             {
                 _leftPressTime.Up = Time.time;
                 buttonPressed = true;

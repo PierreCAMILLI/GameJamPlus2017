@@ -54,6 +54,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 1
+  resetSave: 0
+  nbScore_MAX: 0
+  nbScore: 0
 --- !u!114 &114854657353248986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,12 +71,12 @@ MonoBehaviour:
   m_dontDestroyOnLoad: 1
   _timeMultipleTriggers: 0.25
   _playerControls:
-  - m_leftButton: Left_1
-    m_rightButton: Right_1
-    m_pauseButton: Pause
-  - m_leftButton: Left_2
-    m_rightButton: Right_2
-    m_pauseButton: Pause
+  - _leftButton: 354
+    _rightButton: 355
+    _pauseButton: 337
+  - _leftButton: 374
+    _rightButton: 375
+    _pauseButton: 337
 --- !u!114 &114973669227186056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,3 +91,8 @@ MonoBehaviour:
   m_dontDestroyOnLoad: 1
   _startCountdownInit: 3
   _limitObjectsToFall: 30
+  _offMiddleZoneWidth: 1
+  _toggleTimer: 1
+  _fallSpeedMultiplier: 1
+  _gameOver: 0
+  debug_InitCoopGame: 1

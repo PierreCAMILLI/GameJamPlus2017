@@ -58,9 +58,23 @@ MonoBehaviour:
   _startCountdownInit: 3
   _limitObjectsToFall: 30
   _offMiddleZoneWidth: 1
-  _toggleTimer: 0
+  colisionFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _toggleTimer: 1
   _fallSpeedMultiplier: 1
-  debug_InitCoopGame: 1
+  debug_InitCoopGame: 0
 --- !u!114 &114659282552800788
 MonoBehaviour:
   m_ObjectHideFlags: 1

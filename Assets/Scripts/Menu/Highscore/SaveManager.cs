@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SaveManager : SingletonBehaviour<SaveManager>{
 
-	#region Name array
+	#region Array
 
 	public string[] nameP1;
 	public string[] nameP2;

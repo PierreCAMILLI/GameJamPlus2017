@@ -56,11 +56,11 @@ public class musicAudio : SingletonBehaviour<musicAudio>
 		speakers.Play();
 	}
 
-	public void playGameTheme()
-	{
-		speakers.volume = volGeneral;
-		speakers.clip = GameTheme;
-		speakers.PlayDelayed(2f);
-	}
+ 	public void playGameTheme()
+{
+	speakers.volume = volGeneral;
+	speakers.clip = GameTheme;
+	speakers.PlayDelayed(2f);
+}
 }
 

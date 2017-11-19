@@ -54,6 +54,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 1
+  nbScore_MAX: 0
+  nbScore: 0
 --- !u!114 &114854657353248986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,3 +90,6 @@ MonoBehaviour:
   m_dontDestroyOnLoad: 1
   _startCountdownInit: 3
   _limitObjectsToFall: 30
+  _offMiddleZoneWidth: 1
+  _toggleTimer: 0
+  _fallSpeedMultiplier: 1

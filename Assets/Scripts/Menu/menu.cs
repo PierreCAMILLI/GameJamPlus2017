@@ -202,38 +202,6 @@ public class menu : SingletonBehaviour<menu> {
 		}
 	}
 
-	public void gameOver(SaveManager.score_struct score)
-	{
-		gameOverPanel.SetActive(true);
-		Time.timeScale = 0f;
-		SaveManager.Instance.saveScore(score);
-		
-
-		if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
-		{
-			menuLoad();
-		}
-	}
-	/// <summary>
-	/// Pour l'intant mis ici, à déplacer dans le fichier approprié
-	/// </summary>
-	public string convertTimerString(float time)
-	{
-		int min = _get_min(time);
-		int sec = _get_sec(time);
-
-		return (min / 10).ToString() + (min % 10).ToString() + " : " + (sec / 10).ToString() + (sec % 10).ToString();
-	}
-	public int _get_min(float time)
-	{
-		return Mathf.FloorToInt (time / 60);
-	}
-	public int _get_sec(float time)
-	{
-		return Mathf.FloorToInt (time % 60);
-	}
 	
-
-
 
 }

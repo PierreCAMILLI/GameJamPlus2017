@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class quitCredit : MonoBehaviour {
 
-	IEnumerator couroutine;
+	private IEnumerator coroutine;
 	public float delay;
+
 	// Use this for initialization
 	void Start () {
 
-		couroutine = quitGame(delay);
+		coroutine = quitGame(delay);
 		StartCoroutine(coroutine);
 	}
 	
@@ -19,7 +20,7 @@ public class quitCredit : MonoBehaviour {
 	}
 	IEnumerator quitGame(float delay)
 	{
-		_playcorout = true;
+		
 		yield return new WaitForSecondsRealtime(5f);
 		Application.Quit();
 		

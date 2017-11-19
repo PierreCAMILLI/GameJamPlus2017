@@ -23,7 +23,7 @@ public class musicAudio : SingletonBehaviour<musicAudio>
 	// Update is called once per frame
 	void Update()
 	{
-		G
+		
 
 	}
 	public void playMenuTheme()

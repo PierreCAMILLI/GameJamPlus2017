@@ -137,11 +137,11 @@ public class Food : MonoBehaviour {
             if(!Balance.Instance.IsInGoodSide(Type, transform.position))
             {
                 --(GameManager.Instance.PlayerStats[(int)player].FallenObjects);
-                MalusManager.Instance.Give<AccelerateFallMalus>((byte)player);
+                // MalusManager.Instance.Give<AccelerateFallMalus>((byte)player);
             }
             else
             {
-                MalusManager.Instance.RemoveMalus((byte)player);
+                // MalusManager.Instance.RemoveMalus((byte)player);
             }
         }
     }

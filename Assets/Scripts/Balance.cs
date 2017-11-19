@@ -38,9 +38,9 @@ public class Balance : SingletonBehaviour<Balance> {
         switch (type)
         {
             case Food.FoodType.Fruit:
-                return pos.x < 0f;
-            case Food.FoodType.Vegetable:
                 return pos.x >= 0f;
+            case Food.FoodType.Vegetable:
+                return pos.x < 0f;
             case Food.FoodType.Both:
                 return true;
             default:

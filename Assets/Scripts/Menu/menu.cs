@@ -93,7 +93,7 @@ public class menu : SingletonBehaviour<menu> {
 		else if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
 
-			if (Controls.Instance.Player (0).Left) {
+			if (Controls.Instance.Player(0).Left) {
 				LBp1.SetActive (false);
 				LB2p1.SetActive (true);
 			} 
@@ -102,7 +102,7 @@ public class menu : SingletonBehaviour<menu> {
 					LB2p1.SetActive (false);
 
 			}
-			if (Controls.Instance.Player (0).Right) {
+			if (Controls.Instance.Player(0).Right) {
 				RBp1.SetActive (false);
 				RB2p1.SetActive (true);
 			} 
@@ -111,7 +111,7 @@ public class menu : SingletonBehaviour<menu> {
 					RB2p1.SetActive (false);
 
 			}
-			if (Controls.Instance.Player (1).Left) {
+			if (Controls.Instance.Player(1).Left) {
 				LBp2.SetActive (false);
 				LB2p2.SetActive (true);
 			} else {
@@ -119,7 +119,7 @@ public class menu : SingletonBehaviour<menu> {
 					LB2p2.SetActive (false);
 
 			}
-			if (Controls.Instance.Player (1).Right) {
+			if (Controls.Instance.Player(1).Right) {
 				RBp2.SetActive (false);
 				RB2p2.SetActive (true);
 			} else {

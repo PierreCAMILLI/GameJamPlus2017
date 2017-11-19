@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager> {
@@ -101,6 +102,9 @@ public class GameManager : SingletonBehaviour<GameManager> {
     {
         if (_toggleTimer)
             _timer += Time.deltaTime;
+        if (FoodSpawner.Spawners.All(x => x.ReadyToSpawn))
+            foreach (FoodSpawner spawner in FoodSpawner.Spawners)
+                spawner.Spawn();
     }
 
     public void InitGame(GameMode mode)

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour {
@@ -35,6 +36,9 @@ public class FoodSpawner : MonoBehaviour {
     [SerializeField]
     Transform _floorTransform;
 
+    private bool _readyToSpawn = true;
+    public bool ReadyToSpawn { get { return _readyToSpawn; } set { _readyToSpawn = value; } }
+
 	// Use this for initialization
 	void Awake () {
         if(_spawners == null)
@@ -44,7 +48,7 @@ public class FoodSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        UpdateSpawn();
+        //UpdateSpawn();
 	}
 
     void UpdateSpawn()
@@ -53,32 +57,38 @@ public class FoodSpawner : MonoBehaviour {
         //while(Random.Range(0f,1f) <= _foodPerSecond * Time.deltaTime)
         if(_lastFoodSpawned == null || _lastFoodSpawned.UsePhysicsGravity || _lastFoodSpawned.Swapped)
         {
-            Food pickedFood = _foodInstances[Random.Range(0, _foodInstances.Length)];
-            Food instance = Instantiate(pickedFood, transform);
-
-            FoodController controller = instance.GetComponent<FoodController>();
-            if (controller == null)
-                controller = instance.gameObject.AddComponent<FoodController>();
-
-            // Fait apparaitre l'objet sur une position aléatoire
-            Vector2 pos = new Vector2(
-                Random.Range(- _spawnArea.width * 0.5f, _spawnArea.width * 0.5f),
-                Random.Range(-_spawnArea.height * 0.5f, _spawnArea.height * 0.5f)
-                );
-            pos.x = pos.x - Mathf.Repeat(pos.x, FoodController._moveStep);
-
-            // Détermine si la pièce appartient au premier ou deuxième joueur
-            instance.player = _player;
-            controller.PlayerNumber = (byte)instance.player;
-
-            // Set les différentes informations du fruit ou légume
-            instance.transform.position = transform.TransformPoint(pos);
-            instance.UsePhysicsGravity = false;
-            instance.floorTransform = Balance.Instance.transform;
-            instance.spawner = this;
-
-            _lastFoodSpawned = instance;
+            Spawn();
         }
+    }
+
+    public void Spawn()
+    {
+        Food pickedFood = _foodInstances[Random.Range(0, _foodInstances.Length)];
+        Food instance = Instantiate(pickedFood, transform);
+
+        FoodController controller = instance.GetComponent<FoodController>();
+        if (controller == null)
+            controller = instance.gameObject.AddComponent<FoodController>();
+
+        // Fait apparaitre l'objet sur une position aléatoire
+        Vector2 pos = new Vector2(
+            Random.Range(-_spawnArea.width * 0.5f, _spawnArea.width * 0.5f),
+            Random.Range(-_spawnArea.height * 0.5f, _spawnArea.height * 0.5f)
+            );
+        pos.x = pos.x - Mathf.Repeat(pos.x, FoodController._moveStep);
+
+        // Détermine si la pièce appartient au premier ou deuxième joueur
+        instance.player = _player;
+        controller.PlayerNumber = (byte)instance.player;
+
+        // Set les différentes informations du fruit ou légume
+        instance.transform.position = transform.TransformPoint(pos);
+        instance.UsePhysicsGravity = false;
+        instance.floorTransform = Balance.Instance.transform;
+        instance.spawner = this;
+
+        _lastFoodSpawned = instance;
+        _readyToSpawn = false;
     }
 
     struct _Bounds2D

@@ -129,6 +129,7 @@ public class Food : MonoBehaviour {
         if(     collision.gameObject.tag == _balanceTag
             ||  (collision.gameObject.tag == _foodTag && collision.gameObject.GetComponent<Food>().UsePhysicsGravity))
         {
+            spawner.ReadyToSpawn = true;
             _usePhysicsGravity = true;
             transform.parent = null;
 

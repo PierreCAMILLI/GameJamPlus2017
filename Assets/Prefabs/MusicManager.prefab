@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4513787761910074}
-  - component: {fileID: 114819517113311822}
   - component: {fileID: 82052724137160212}
+  - component: {fileID: 114846533728496292}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -121,7 +121,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114819517113311822
+--- !u!114 &114846533728496292
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1152292083470514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdd555a6d274aa24f953d64f1e4915dd, type: 3}
+  m_Script: {fileID: 11500000, guid: da134ae8b21da914c9422130d120be77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 1

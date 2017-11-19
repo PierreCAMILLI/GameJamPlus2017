@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4178119806255178}
   - component: {fileID: 82848398001399454}
+  - component: {fileID: 114221008578330012}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -120,3 +121,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114221008578330012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1615368552948128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da134ae8b21da914c9422130d120be77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dontDestroyOnLoad: 1
+  MenuTheme: {fileID: 8300000, guid: 73d3c18e59e8d764b9830428045bcb7d, type: 3}
+  GameTheme: {fileID: 8300000, guid: fe443673c352bba4daee88fbb1068708, type: 3}
+  sonette: {fileID: 0}
+  game_over: {fileID: 8300000, guid: afbbcd0d7c7b4a84c98927680f0b5155, type: 3}
+  speakers: {fileID: 82848398001399454}
+  objectSon: {fileID: 0}
+  volGeneral: 0.5

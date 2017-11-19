@@ -7,18 +7,18 @@ public class musicAudio : SingletonBehaviour<musicAudio>
 
 	public AudioClip MenuTheme;
 	public AudioClip GameTheme;
-
 	public AudioClip sonette;
 	public AudioClip game_over;
+
 	public AudioSource speakers;
 	public AudioSource objectSon;
-	public float volMenu;
-	public float volGame;
+	public float volGeneral;
+
 
 	// Use this for initialization
 	void Start()
 	{
-		speakers.volume = volMenu;
+		speakers.volume = volGeneral;
 		speakers.clip = MenuTheme;
 		speakers.PlayDelayed(1f);
 	}
@@ -31,7 +31,7 @@ public class musicAudio : SingletonBehaviour<musicAudio>
 	}
 	public void playMenuTheme()
 	{
-		speakers.volume = volMenu;
+		speakers.volume = volGeneral;
 		speakers.clip = MenuTheme;
 		speakers.PlayDelayed(1f);
 	}
@@ -39,19 +39,26 @@ public class musicAudio : SingletonBehaviour<musicAudio>
 	public void instancePlayAudio(AudioClip son, Transform parent)
 	{
 		AudioSource clone =Instantiate(objectSon, parent).GetComponent<AudioSource>();
-		clone.volume = 0.5f;
+		clone.volume = volGeneral;
 		clone.clip = son;
 		clone.Play();
 	}
 	public void playAudioClipe(AudioClip son)
 	{
-		speakers.volume = 0.5f;
+		speakers.volume = volGeneral;
 		speakers.clip = son;
 		speakers.Play();
 	}
+	public void playGameOver()
+	{
+		speakers.volume = volGeneral;
+		speakers.clip = game_over;
+		speakers.Play();
+	}
+
 	public void playGameTheme()
 	{
-		speakers.volume = volGame;
+		speakers.volume = volGeneral;
 		speakers.clip = GameTheme;
 		speakers.PlayDelayed(2f);
 	}

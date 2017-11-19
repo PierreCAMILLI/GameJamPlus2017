@@ -13,6 +13,7 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 
 
 	#endregion
+
 	#region Save
 	private bool resetSave;
 	
@@ -45,8 +46,8 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 
 		Highscores = new List<score_struct>();
 
-		nameP1 = new string[] { "Henry " };
-		nameP2 = new string[] { "Henry " };
+		nameP1 = new string[25];
+		nameP2 = new string[25];
 
 	if (!PlayerPrefs.HasKey("nbScore"))
 		{

@@ -72,10 +72,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 1
-  nameP1: []
-  nameP2: []
-  nbScore_MAX: 0
-  nbScore: 0
+  nameP1:
+  - Barry
+  - Tim
+  - Fabrice
+  - Cleo
+  - Pierre
+  - Ramon
+  - Jules
+  - Gabby
+  - Marc
+  - Paolo
+  - Sergei
+  - Charly
+  - Jeremiah
+  - Carla
+  - Eliaz
+  - Petra
+  - Lara
+  - Sarah
+  - Mathieu
+  - Ingrid
+  - Alexia
+  - Tobi
+  - Crystal
+  - Ernest
+  - Salvador
+  nameP2:
+  - Banana
+  - Tomato
+  - Zucchini
+  - Carrot
+  - Pineapple
+  - Radish
+  - Cherry
+  - Grape
+  - Mushroom
+  - Pear
+  - Strawberry
+  - Coconut
+  - Orange
+  - Papaya
+  - Fig
+  - Potato
+  - Cabbage
+  - Pumpkin
+  - Leek
+  - Celery
+  - Apple
+  - Cucumber
+  - Kiwi
+  - Peas
+  - Garlic
+  nbScore_MAX: 10
+  nbScore: 3
 --- !u!114 &114753805572586866
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -33,6 +33,7 @@ public class GameOverManager : SingletonBehaviour<GameOverManager> {
 		if (!GameManager.Instance.PlayerStats.Any(x=>x==null) ){
 			if (GameManager.Instance.PlayerStats.Any(x => x.FallenObjects <= 0)) {
 				_gameOver = true;
+				musicAudio.Instance.playGameOver();
 			}
 		}
 

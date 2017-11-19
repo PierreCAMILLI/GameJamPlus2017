@@ -117,7 +117,7 @@ public class Food : MonoBehaviour {
         else
         {
             _rigidbody2D.gravityScale = 0f;
-            transform.position += -transform.parent.up * _speed * GameManager.Instance.FallSpeedMultiplier * Time.deltaTime;
+            transform.position += -transform.parent.up * _speed * GameManager.Instance.FallSpeedMultiplier * GameManager.Instance.PlayerStats[(int) player].FallSpeed * Time.deltaTime;
         }
     }
     #endregion
@@ -136,13 +136,19 @@ public class Food : MonoBehaviour {
             if(!Balance.Instance.IsInGoodSide(Type, transform.position))
             {
                 --(GameManager.Instance.PlayerStats[(int)player].FallenObjects);
+                MalusManager.Instance.Give<AccelerateFallMalus>((byte)player);
+            }
+            else
+            {
+                MalusManager.Instance.RemoveMalus((byte)player);
             }
         }
     }
 
     private void OnBecameInvisible()
     {
-        --(GameManager.Instance.PlayerStats[(int) player].FallenObjects);
+        if(GameManager.Instance != null)
+            --(GameManager.Instance.PlayerStats[(int) player].FallenObjects);
         Destroy(gameObject);
     }
 

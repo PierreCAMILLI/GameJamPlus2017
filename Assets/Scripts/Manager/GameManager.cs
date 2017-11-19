@@ -125,10 +125,14 @@ public class PlayerStats
     private int _fallenObjects;
     public int FallenObjects { get { return _fallenObjects; } set { _fallenObjects = value; } }
 
+    private float _fallSpeed = 1.0f;
+    public float FallSpeed { get { return _fallSpeed; } set { _fallSpeed = value; } }
+
     public void InitGame(GameManager.GameMode mode)
     {
         _timer = 0f;
         _fallenObjects = GameManager.Instance.LimitObjectsToFall;
+        _fallSpeed = 1f;
     }
 
 }

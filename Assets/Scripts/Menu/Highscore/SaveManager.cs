@@ -6,9 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class SaveManager : SingletonBehaviour<SaveManager>{
 
-	public bool resetSave;
+	#region Name array
+
+	public string[] nameP1;
+	public string[] nameP2;
 
 
+	#endregion
+	#region Save
+	private bool resetSave;
+	
 	//Les données sauvegardé de documents et succés
 	[SerializeField]
 	public int nbScore_MAX;
@@ -25,6 +32,9 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 		public int score_sec;
 	};
 
+	#endregion
+
+
 	void Awake()
 	{
 		resetSave = false;
@@ -35,8 +45,10 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 
 		Highscores = new List<score_struct>();
 
+		nameP1 = new string[] { "Henry " };
+		nameP2 = new string[] { "Henry " };
 
-		if (!PlayerPrefs.HasKey("nbScore"))
+	if (!PlayerPrefs.HasKey("nbScore"))
 		{
 			nbScore = 0;
 			PlayerPrefs.SetInt("nbScore", 0);
@@ -61,14 +73,20 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 	{
 		if (resetSave)
 		{
-			PlayerPrefs.DeleteAll();
-			//Debug.Log("reset saves");
+			resetSaves();
+			
 		}
 	}
-
+	public void resetSaves() {
+		PlayerPrefs.DeleteAll();
+		Debug.Log("reset saves");
+		resetSave = false;
+		menu.Instance.quitGame();
+	}
 	//sauve le score dans le tableau, dans la mémoire, et retourne la position du joueur
 	public int saveScore(score_struct newScore)
 	{
+		Debug.Log("Save");
 		++nbScore;
 		nbScore = Mathf.Min(nbScore_MAX, nbScore);
 		//Debug.Log(nbScore);
@@ -98,7 +116,7 @@ public class SaveManager : SingletonBehaviour<SaveManager>{
 		int index = i;
 
 		//Sauvegarde mémoire
-		Debug.Log(i);
+
 		for (i=0; i < nbScore ; i++)
 		{
 			

@@ -15,6 +15,10 @@ public class menu : SingletonBehaviour<menu> {
 
 	public int buttonchoice;
 	public Button[] buttonPause;
+	public GameObject checkp1;
+	public GameObject checkp2;
+	private bool _playcheck;
+	private bool _playcorout;
 
 	public GameObject scoreText;
 	public GameObject contentScore;
@@ -23,7 +27,8 @@ public class menu : SingletonBehaviour<menu> {
 	void Start () {
 		createHighscore();
 		buttonchoice = 0;
-		
+		_playcheck = false;
+
 
 	}
 
@@ -40,7 +45,7 @@ public class menu : SingletonBehaviour<menu> {
 		if (SceneManager.GetActiveScene().name == "GameScene")
 		{
 
-			//Debug.Log(pausePanel.activeSelf);
+
 			if (pausePanel.activeSelf && !gameOverPanel.activeSelf)
 			{
 				if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
@@ -69,16 +74,14 @@ public class menu : SingletonBehaviour<menu> {
 
 
 			}
-			else if (!gameOverPanel.activeSelf)
+			else if (!gameOverPanel.activeSelf && !pausePanel.activeSelf)
 			{
 				if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
 				{
 					pause();
 				}
 			}
-			else if (gameOverPanel.activeSelf) {
-				//gameOver();
-			} 
+			
 		}
 		else if (SceneManager.GetActiveScene().name == "MainMenu")
 		{
@@ -87,19 +90,37 @@ public class menu : SingletonBehaviour<menu> {
 			if (Controls.Instance.Player(0).Swap)
 			{
 				Debug.Log("Player 1 here");
-				//change sprite player 1
+				checkp1.SetActive(true);
 
 			}
+			else {
+				if (!_playcheck)
+				{
+					checkp1.SetActive(false);
+				}
+			}
+
 			if (Controls.Instance.Player(1).Swap)
 			{
 				Debug.Log("Player 2 here");
-				//change sprite player 2
+				checkp2.SetActive(true);
 
+			}
+			else
+			{
+				if (!_playcheck)
+				{
+					checkp2.SetActive(false);
+				}
 			}
 			if (Controls.Instance.Player(0).Swap && Controls.Instance.Player(1).Swap)
 			{
-				Debug.Log("play");
-				play();
+				if (!_playcorout)
+				{
+					Debug.Log("play");
+					StartCoroutine("PlayDelay");
+					_playcheck = true;
+				}
 			}
 
 			//Menu
@@ -202,38 +223,14 @@ public class menu : SingletonBehaviour<menu> {
 		}
 	}
 
-	public void gameOver(SaveManager.score_struct score)
-	{
-		gameOverPanel.SetActive(true);
-		Time.timeScale = 0f;
-		SaveManager.Instance.saveScore(score);
-		
-
-		if (Controls.Instance.Player(0).PauseDown || Controls.Instance.Player(1).PauseDown)
-		{
-			menuLoad();
-		}
+	IEnumerator PlayDelay() {
+		_playcorout = true;
+		yield return new WaitForSecondsRealtime(2f);
+		_playcheck = false;
+		checkp1.SetActive(false);
+		checkp2.SetActive(false);
+		play();
+		_playcorout = false;
 	}
-	/// <summary>
-	/// Pour l'intant mis ici, à déplacer dans le fichier approprié
-	/// </summary>
-	public string convertTimerString(float time)
-	{
-		int min = _get_min(time);
-		int sec = _get_sec(time);
-
-		return (min / 10).ToString() + (min % 10).ToString() + " : " + (sec / 10).ToString() + (sec % 10).ToString();
-	}
-	public int _get_min(float time)
-	{
-		return Mathf.FloorToInt (time / 60);
-	}
-	public int _get_sec(float time)
-	{
-		return Mathf.FloorToInt (time % 60);
-	}
-	
-
-
 
 }

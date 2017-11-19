@@ -86,9 +86,10 @@ public class GameManager : SingletonBehaviour<GameManager> {
     public PlayerStats SecondPlayerStats { get { return _playerStats[1]; } }
 #endregion
 
-	public bool _gameOver;
 
     public bool debug_InitCoopGame = false;
+
+
 
     void Start()
     {

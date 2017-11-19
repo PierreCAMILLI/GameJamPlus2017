@@ -17,7 +17,8 @@ public class Food : MonoBehaviour {
     public enum FoodType
     {
         Fruit,
-        Vegetable
+        Vegetable,
+        Both
     }
 
     const string _balanceTag = "Balance";
@@ -29,9 +30,11 @@ public class Food : MonoBehaviour {
 
     public Player player;
 
+    [SerializeField]
     private FoodType _foodType;
     public FoodType Type { get { return _foodType; } }
 
+    [HideInInspector]
     public FoodSpawner spawner;
 
     public Transform floorTransform;
@@ -128,6 +131,12 @@ public class Food : MonoBehaviour {
         {
             _usePhysicsGravity = true;
             transform.parent = null;
+
+            // Check si le bloc est posé du bon côté de la balance
+            if(!Balance.Instance.IsInGoodSide(Type, transform.position))
+            {
+                --(GameManager.Instance.PlayerStats[(int)player].FallenObjects);
+            }
         }
     }
 

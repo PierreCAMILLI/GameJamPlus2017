@@ -112,7 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ceaeca4ddb9674f8249ffdb567383e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: 0
+  _foodType: 1
+  spawner: {fileID: 0}
   floorTransform: {fileID: 0}
+  _swapped: 0
   _usePhysicsGravity: 0
   _gravity: {x: 1, y: -1}
   _speed: 2

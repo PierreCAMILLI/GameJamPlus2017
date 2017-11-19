@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8482e440f42f6ba40a925b1e0faf9686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dontDestroyOnLoad: 0
+  m_dontDestroyOnLoad: 1
   _ui: {fileID: 224606506447205336}
   textGameOver: {fileID: 114123316724934446}
   _gameOver: 0

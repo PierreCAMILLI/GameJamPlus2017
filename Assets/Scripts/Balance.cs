@@ -41,6 +41,8 @@ public class Balance : SingletonBehaviour<Balance> {
                 return pos.x < 0f;
             case Food.FoodType.Vegetable:
                 return pos.x >= 0f;
+            case Food.FoodType.Both:
+                return true;
             default:
                 return false;
         }

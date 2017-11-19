@@ -17,7 +17,8 @@ public class Food : MonoBehaviour {
     public enum FoodType
     {
         Fruit,
-        Vegetable
+        Vegetable,
+        Both
     }
 
     const string _balanceTag = "Balance";
@@ -33,6 +34,7 @@ public class Food : MonoBehaviour {
     private FoodType _foodType;
     public FoodType Type { get { return _foodType; } }
 
+    [HideInInspector]
     public FoodSpawner spawner;
 
     public Transform floorTransform;

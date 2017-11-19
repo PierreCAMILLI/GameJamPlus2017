@@ -23,12 +23,15 @@ public class PlayerController
 #region Unity Axis
     [SerializeField]
     KeyCode _leftButton = KeyCode.Joystick1Button4;
+    public KeyCode LeftButton { get { return _leftButton; } set { _leftButton = value; } }
 
     [SerializeField]
     KeyCode _rightButton = KeyCode.Joystick1Button5;
+    public KeyCode RightButton { get { return _rightButton; } set { _rightButton = value; } }
 
     [SerializeField]
     KeyCode _pauseButton = KeyCode.JoystickButton7;
+    public KeyCode PauseButton { get { return _pauseButton; } set { _pauseButton = value; } }
     #endregion
 
     #region Double Press

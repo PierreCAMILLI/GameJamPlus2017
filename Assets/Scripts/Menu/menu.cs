@@ -89,7 +89,7 @@ public class menu : SingletonBehaviour<menu> {
 
 			if (Controls.Instance.Player(0).Swap)
 			{
-				Debug.Log("Player 1 here");
+				//Debug.Log("Player 1 here");
 				checkp1.SetActive(true);
 
 			}
@@ -102,7 +102,7 @@ public class menu : SingletonBehaviour<menu> {
 
 			if (Controls.Instance.Player(1).Swap)
 			{
-				Debug.Log("Player 2 here");
+				//Debug.Log("Player 2 here");
 				checkp2.SetActive(true);
 
 			}

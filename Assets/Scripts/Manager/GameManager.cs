@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonBehaviour<GameManager> {
 
@@ -100,11 +101,14 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     void Update()
     {
-        if (_toggleTimer)
-            _timer += Time.deltaTime;
-        if (FoodSpawner.Spawners.All(x => x.ReadyToSpawn))
-            foreach (FoodSpawner spawner in FoodSpawner.Spawners)
-                spawner.Spawn();
+		if (SceneManager.GetActiveScene().name == "GameScene")
+		{
+			if (_toggleTimer)
+				_timer += Time.deltaTime;
+			if (FoodSpawner.Spawners.All(x => x.ReadyToSpawn))
+				foreach (FoodSpawner spawner in FoodSpawner.Spawners)
+					spawner.Spawn();
+		}
     }
 
     public void InitGame(GameMode mode)
